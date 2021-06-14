@@ -5,13 +5,25 @@ import { useParams } from "react-router-dom"
 
 export const MessageDetail = () => {
     const { messages } = useContext(MessageContext)
-    const [ message, setMessage ] = useState({ location: {}})
+    const [ message, setMessage ] = useState({
+        senderShirt: {},
+        recipientShirt: {},
+        text:"",
+        read: false,
+        accepted: false,
+        timestamp: 0
+    }),
 
     const { messageId } = useParams();
+    //problem with this const - check tomorrow
+
+    useEffect(() => {
+        getMessages
+    },[])
 
 
     useEffect(() => {
-        const thisMessage = messages.find(a => a.id === parseInt(messageId))
+        const thisMessage = messages.find(a => a.id === messageId)
         setMessage(thisMessage)
     }, [messageId])
 

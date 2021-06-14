@@ -22,9 +22,14 @@ export const MessageProvider = (props) => {
         .then(response => response.json)
     }
 
+    const getMessageById = (msgId) => {
+        return fetch(`http://localhost:7077/messages/${msgId}?_expand=shirt`)
+        .then(res=> res.json())
+    }
+
     return (
         <MessageContext.Provider value={{
-            messages, getMessages, addMessage
+            messages, getMessages, addMessage, getMessageById
         }}>
         {props.children}
         </MessageContext.Provider>

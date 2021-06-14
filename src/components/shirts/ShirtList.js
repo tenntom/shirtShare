@@ -18,7 +18,7 @@ export const ShirtList = () => {
                 {
                     shirts.map((shirt) => {
                         return (
-                            <ShirtDetail Shirt={Shirt} key={Shirt.id}/>
+                            <ShirtDetail shirt={shirt} key={shirt.id}/>
                             // <div key={Shirt.id} className="Shirt">
                             //     <h4>Shirt: {Shirt.title}</h4>
                             // <link>maybe a link with the photo</link>

@@ -13,7 +13,9 @@ export const ShirtDetail = (props) => {
         imageURL: "",
         description: "",
         timestamp:0,
-        keywords: []
+        keywords: [],
+        user:{},
+        size:{}
     })
 
     const shirtId = props.shirt.id
@@ -34,7 +36,7 @@ export const ShirtDetail = (props) => {
                 <img className="shirt__image__img" src={shirt.imageURL} />
             </div>
             <h4 className="product__type">Description: {shirt.description}</h4>
-            <h4 className="shirt__size">Size: {shirt.size.size}</h4>
+            <h4 className="shirt__size">Size: {shirt.sizeId.size}</h4>
             <h4 className="product__price">Posted by: {shirt.user.firstName}</h4>
         </section>
     </>

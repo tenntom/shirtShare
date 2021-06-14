@@ -5,7 +5,7 @@ export const UserContext = createContext()
 
 // This component establishes what data can be used.
 export const UserProvider = (props) => {
-    const [users, setUser] = useState([])
+    const [users, setUsers] = useState([])
 
     const getUsers = () => {
         return fetch("http://localhost:7777/users")
@@ -21,14 +21,14 @@ export const UserProvider = (props) => {
             },
             body: JSON.stringify(userObj)
         })
-        .then(getUser)
+        .then(getUsers)
     }
 
     const getUserById = (id) => {
         return fetch(`http://localhost:7777/users/${id}`)
         .then(res=> res.json())
     }
-    
+
 
     return (
         <UserContext.Provider value={{
