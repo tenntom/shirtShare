@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ShirtShare from './ShirtShare';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ShirtShare />
   </React.StrictMode>,
   document.getElementById('root')
 );
