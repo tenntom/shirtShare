@@ -1,4 +1,4 @@
-import React, {useState, createContext} from "react"
+import React, { useState, createContext } from "react"
 
 export const TradeContext = createContext()
 
@@ -7,11 +7,11 @@ export const TradeProvider = (props) => {
 
     const getTrades = () => {
         return fetch("http://localhost:7777/trades?_expand=shirt")
-        .then(res=> res.json())
-        .then(setTrades)
+            .then(res => res.json())
+            .then(setTrades)
     }
 
-    const addTrade= tradeObj => {
+    const addTrade = tradeObj => {
         return fetch("http://localhost:7777/trades", {
             method: "POST",
             headers: {
@@ -19,20 +19,27 @@ export const TradeProvider = (props) => {
             },
             body: JSON.stringify(tradeObj)
         })
-        .then(response => response.json)
+            .then(response => response.json)
     }
 
     const getTradeById = (msgId) => {
-        return fetch(`http://localhost:7777/trades/${msgId}?_expand=shirt&_expand=offer`)
-        .then(res=> res.json())
+        return fetch(`http://localhost:7777/trades/${msgId}?_expand=shirt`)
+            .then(res => res.json())
+    }
+
+    const removeTrade = (tradeId) => {
+        return fetch(`http://localhost:7777/trades/${tradeId}`, {
+            method: "DELETE",
+        })
+            .then(getTrades)
     }
 
 
     return (
         <TradeContext.Provider value={{
-            trades, getTrades, addTrade, getTradeById
+            trades, getTrades, addTrade, getTradeById, removeTrade
         }}>
-        {props.children}
+            {props.children}
         </TradeContext.Provider>
     )
 }

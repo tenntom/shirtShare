@@ -90,12 +90,14 @@ export const ShirtForm = () => {
                     <input type="text" id="imageURL" className="form-control" placeholder="Image URL" value={shirt.imageURL} onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
-            <button className="btn btn-primary" onClick={console.log("figure out how to upload images")}>
+            <div className="buttons">
+            <button className="btn btn-upload">
                 Upload Image
             </button>
             <button className="btn btn-primary" onClick={handleClickSaveShirt}>
                 Save Shirt
             </button>
+            </div>
         </form>
     )
 

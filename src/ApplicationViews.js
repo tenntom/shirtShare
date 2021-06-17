@@ -5,8 +5,8 @@ import { Route } from "react-router-dom"
 import { ShirtList } from "./components/shirts/ShirtList"
 import { ShirtProvider } from "./components/shirts/ShirtProvider"
 import { UserProvider } from "./components/users/UserProvider"
-import { OfferShirtProvider } from "./components/shirts/OfferShirtProvider"
 import { ShirtForm } from "./components/shirts/ShirtForm"
+import { TradeForm } from "./components/trades/TradeForm"
 
 
 
@@ -14,7 +14,6 @@ export const ApplicationViews = () => {
     return (
         <>
             <TradeProvider>
-                <OfferShirtProvider>
                     <ShirtProvider>
                         <UserProvider>
                             <Route exact path="/trades">
@@ -23,12 +22,11 @@ export const ApplicationViews = () => {
                             <Route exact path="/trades/detail/:tradeId(\d+)">
                                 <TradeDetail />
                             </Route>
-                            <Route exact path="/trades/offers/:shirtId(\d+)">
-                                <TradeDetail />
+                            <Route exact path="/trades/create">
+                                <TradeForm />
                             </Route>
                         </UserProvider>
                     </ShirtProvider>
-                </OfferShirtProvider>
             </TradeProvider>
             <ShirtProvider>
                 <UserProvider>

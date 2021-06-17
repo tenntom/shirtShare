@@ -19,3 +19,8 @@
     margin: 2em;
     padding: 2em;
   }
+
+  .shirt__image__img{
+    max-width: 25em;
+    max-height: 25em;
+  }

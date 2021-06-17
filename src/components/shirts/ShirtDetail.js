@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react"
 import {ShirtContext} from "./ShirtProvider"
 import "./Shirts.css"
+import { useHistory } from "react-router-dom"
 
 export const ShirtDetail = (props) => {
 
-    const {getShirtById} = useContext(ShirtContext)
+    const {getShirtById, removeShirt} = useContext(ShirtContext)
 
     const [shirt, setShirt] = useState({
         title: "",
@@ -20,6 +21,8 @@ export const ShirtDetail = (props) => {
 
     const shirtId = props.shirt.id
 
+    const history = useHistory()
+
     useEffect(() => {
         getShirtById(shirtId)
             .then(
@@ -27,6 +30,13 @@ export const ShirtDetail = (props) => {
             )
     }, []
     )
+
+    const handleRemove = () => {
+        removeShirt(shirt.id)
+          .then(() => {
+            history.push("/shirts")
+          })
+      }
 
     return (
     <>
@@ -39,6 +49,7 @@ export const ShirtDetail = (props) => {
             <h4 className="shirt__size">Size: {shirt.sizeId}</h4>
             <h4 className="shirt__user">Posted by: {shirt.userId}</h4>
             {/* This needs to show the user name and shirt Size. */}
+            <button className="shirt__remove" onClick={handleRemove}>Remove Shirt</button>
         </section>
     </>
     )

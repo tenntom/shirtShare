@@ -28,6 +28,13 @@ export const ShirtProvider = (props) => {
         .then(res=> res.json())
     }
 
+    const removeShirt = (shirtId) => {
+        return fetch(`http://localhost:7777/shirts/${shirtId}`, {
+            method: "DELETE"
+        })
+        .then(getShirts)
+    }
+
     const getSizes = () => {
         return fetch("http://localhost:7777/sizes")
         .then(res=> res.json())
@@ -37,7 +44,7 @@ export const ShirtProvider = (props) => {
 
     return (
         <ShirtContext.Provider value={{
-        shirts, getShirts, getShirtById, getSizes, shirtSizes, addShirt
+        shirts, getShirts, getShirtById, getSizes, shirtSizes, addShirt, removeShirt
     }}>
     {props.children}
     </ShirtContext.Provider>
