@@ -1,0 +1,26 @@
+.trades {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.trade {
+    flex-basis: 80%;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid goldenrod; 
+}
+
+.trade__images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.trade_photo {
+    flex-basis: 40%;
+    margin: 1em;
+    padding: 1em;
+    max-width: 20em;
+    max-height: 20em;
+}
