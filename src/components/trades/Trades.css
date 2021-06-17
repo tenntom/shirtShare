@@ -1,10 +1,10 @@
-.messages {
+.trades {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.message {
+.trade {
     flex-basis: 28%;
     margin: 1em;
     padding: 1em;

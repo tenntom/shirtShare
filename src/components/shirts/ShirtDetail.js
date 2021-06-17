@@ -35,9 +35,10 @@ export const ShirtDetail = (props) => {
             <div className="shirt__image">
                 <img className="shirt__image__img" src={shirt.imageURL} />
             </div>
-            <h4 className="product__type">Description: {shirt.description}</h4>
-            <h4 className="shirt__size">Size: {shirt.sizeId.size}</h4>
-            <h4 className="product__price">Posted by: {shirt.user.firstName}</h4>
+            <h4 className="shirt__description">Description: {shirt.description}</h4>
+            <h4 className="shirt__size">Size: {shirt.sizeId}</h4>
+            <h4 className="shirt__user">Posted by: {shirt.userId}</h4>
+            {/* This needs to show the user name and shirt Size. */}
         </section>
     </>
     )

@@ -14,10 +14,10 @@ export const NavBar = (props) => {
                     <Link className="navbar__link" to="/shirts">Shirts</Link>
                 </li>
                 <li className="navbar__item">
-                    <Link className="navbar__link" to="/messages">Your Proposals</Link>
+                    <Link className="navbar__link" to="/trades">Your Proposals</Link>
                 </li>
                 <li className="navbar__item">
-                    <Link className="navbar__link" to="/messages/create">New Proposal</Link>
+                    <Link className="navbar__link" to="/trades/create">New Proposal</Link>
                 </li>
                 <li className="navbar__item">
                     <Link className="navbar__link" to="/login"
