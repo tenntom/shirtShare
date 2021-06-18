@@ -15,10 +15,6 @@ export const TradeList = () => {
         .then(() => getShirts())
     }, [])
 
-    // useEffect(() => {
-    //     getShirts()
-    // }, [])
-
 
 
     return (
@@ -32,14 +28,12 @@ export const TradeList = () => {
             <div className="trades">
                 {
                     trades.map(trade => {
-                        // const offerShirt = shirts.find(shirt => shirt.id === trade.offerShirtId)
                         return (
                             <div className="trade">
                                 <Link to={`/trades/detail/${trade.id}`} className="trade__link"
                                     key={trade.id}>
                                     <h2> {trade.message}</h2>
                                 </Link>
-                                {/* <h3>How about my {offerShirt.title} shirt for your {trade.shirt.title} shirt?</h3> */}
                                 <h3>How about my shirt for your {trade.shirt.title} shirt?</h3>
                             </div>
                         )

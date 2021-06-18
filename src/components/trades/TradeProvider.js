@@ -37,7 +37,7 @@ export const TradeProvider = (props) => {
 
     return (
         <TradeContext.Provider value={{
-            trades, getTrades, addTrade, getTradeById, removeTrade
+            trades, getTrades, addTrade, getTradeById, removeTrade, setTrades
         }}>
             {props.children}
         </TradeContext.Provider>

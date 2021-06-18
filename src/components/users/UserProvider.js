@@ -6,9 +6,12 @@ export const UserContext = createContext()
 // This component establishes what data can be used.
 export const UserProvider = (props) => {
     const [users, setUsers] = useState([])
+    const [user, setUser] = useState({
+        shirts: []
+    })
 
     const getUsers = () => {
-        return fetch("http://localhost:7777/users")
+        return fetch("http://localhost:7777/users?_embed=shirts")
         .then(res => res.json())
         .then(setUsers)
     }
@@ -25,14 +28,15 @@ export const UserProvider = (props) => {
     }
 
     const getUserById = (id) => {
-        return fetch(`http://localhost:7777/users/${id}`)
+        return fetch(`http://localhost:7777/users/${id}?_embed=shirts`)
         .then(res=> res.json())
+        .then(userObj => setUser(userObj))
     }
 
 
     return (
         <UserContext.Provider value={{
-            users, getUsers, addUser
+            users, getUsers, addUser, getUserById, user
         }}>
             {props.children}
         </UserContext.Provider>

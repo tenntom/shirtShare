@@ -7,6 +7,8 @@ import { ShirtProvider } from "./components/shirts/ShirtProvider"
 import { UserProvider } from "./components/users/UserProvider"
 import { ShirtForm } from "./components/shirts/ShirtForm"
 import { TradeForm } from "./components/trades/TradeForm"
+import { OffersReceivedList } from "./components/trades/OffersReceivedList"
+import { OfferSentList } from "./components/trades/OffersSentList"
 
 
 
@@ -19,6 +21,12 @@ export const ApplicationViews = () => {
                             <Route exact path="/trades">
                                 <TradeList />
                             </Route>
+                            <Route exact path="/trades/received">
+                                <OffersReceivedList />
+                            </Route>
+                            <Route exact path="/trades/sent">
+                                <OfferSentList />
+                            </Route>
                             <Route exact path="/trades/detail/:tradeId(\d+)">
                                 <TradeDetail />
                             </Route>
@@ -30,12 +38,14 @@ export const ApplicationViews = () => {
             </TradeProvider>
             <ShirtProvider>
                 <UserProvider>
+                    <TradeProvider>
                     <Route exact path="/shirts">
                         <ShirtList />
                     </Route>
                     <Route exact path="/shirts/create">
                         <ShirtForm />
                     </Route>
+                    </TradeProvider>
                 </UserProvider>
             </ShirtProvider>
 

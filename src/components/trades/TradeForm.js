@@ -53,10 +53,10 @@ export const TradeForm = () => {
             window.alert("Please select a shirt to trade.")
         } else {
             const newTrade = {
-                shirtId: trade.shirtId,
+                shirtId: parseInt(trade.shirtId),
                 // or shirtId: trade.shirtId
                 // of offerShirtId: trade.offerShirtId
-                offerShirtId: trade.offerShirtId,
+                offerShirtId: parseInt(trade.offerShirtId),
                 message: trade.message,
                 accepted: false,
                 timestamp: Date.now()

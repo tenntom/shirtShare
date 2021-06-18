@@ -1,5 +1,6 @@
 import React, { useRef } from "react"
 import { useHistory } from "react-router-dom"
+import {Link} from "react-router-dom"
 import "./Login.css"
 
 export const Register = (props) => {
@@ -9,6 +10,7 @@ export const Register = (props) => {
     const address = useRef()
     const city = useRef()
     const state = useRef()
+    const zip = useRef()
     const conflictDialog = useRef()
     const history = useHistory()
 
@@ -33,7 +35,10 @@ export const Register = (props) => {
                         email: email.current.value,
                         firstName: firstName.current.value,
                         lastName: lastName.current.value,
-                        address: address.current.value
+                        address: address.current.value,
+                        city: city.current.value,
+                        state: state.current.value,
+                        zip: zip.current.value
                     })
                 })
                 .then (res=> res.json())
@@ -77,7 +82,7 @@ export const Register = (props) => {
                     <label htmlFor="address">State</label>
                     <input ref={state} type = "text" maxLength="2" name="state" className="form-control" placeholder="State" required autoFocus />
                     <label htmlFor="zip">Zip</label>
-                    <input ref={address} type = "number" maxLength="5" name="zip" className="form-control" placeholder="Zip" required autoFocus />
+                    <input ref={zip} type = "number" maxLength="5" name="zip" className="form-control" placeholder="Zip" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email">Email</label>
@@ -86,6 +91,9 @@ export const Register = (props) => {
                 <fieldset>
                     <button type="submit"> Sign In </button>
                 </fieldset>
+                <section className="link--register">
+                <Link to="./login">Return to Login</Link>
+            </section>
             </form>
         </main>
     )
