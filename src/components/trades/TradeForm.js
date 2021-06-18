@@ -108,7 +108,7 @@ export const TradeForm = () => {
             <fieldset>
                 <div>
                     <label htmlFor="accepted">Accepted:</label>
-                    <input id="manager"
+                    <input id="accepted"
                         onChange={
                             (changeEvent) => {
                                 const copyOfTradeState = { ...trade }

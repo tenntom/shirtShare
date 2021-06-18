@@ -34,14 +34,7 @@ export const OfferSentList = () => {
     useEffect(() => {
         getTrades()
             .then(() => getShirts())
-            // .then(() => {
-            //     const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
-            //     getUserById(currentUserId)
-            //         .then(() => setCurrentUserShirts(user.shirts))
-            //         .then(() => findOffersSent())
-            //         .then((offerArray) => setUserSentOffers(offerArray))
-            // }, [])
-    })
+    },[])
 
     useEffect(() => {
         const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
