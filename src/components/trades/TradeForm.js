@@ -105,21 +105,23 @@ export const TradeForm = () => {
                     <input type="text" id="message" className="form-control" placeholder="Type a personal message" value={trade.message} onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
-            <fieldset>
-                <div>
-                    <label htmlFor="accepted">Accepted:</label>
-                    <input id="accepted"
-                        onChange={
-                            (changeEvent) => {
-                                const copyOfTradeState = { ...trade }
-                                copyOfTradeState.accepted = !copyOfTradeState.accepted
-                                setTrade(copyOfTradeState)
-                            }
-                        }
-                        type="checkbox" checked={trade.accepted} />
-                    {/* need to figure out how to make this show only for the receiver */}
-                </div>
-            </fieldset>
+
+            { //fieldset>
+            //     <div>
+            //         <label htmlFor="accepted">Accepted:</label>
+            //         <input id="accepted"
+            //             onChange={
+            //                 (changeEvent) => {
+            //                     const copyOfTradeState = { ...trade }
+            //                     copyOfTradeState.accepted = !copyOfTradeState.accepted
+            //                     setTrade(copyOfTradeState)
+            //                 }
+            //             }
+            //             type="checkbox" checked={trade.accepted} />
+            //         {/* need to figure out how to make this show only for the receiver */}
+            //     </div>
+            // </fieldset>
+                    }
             <button className="btn btn-primary" onClick={handleClickSaveEvent}>
                 Save Trade
             </button>

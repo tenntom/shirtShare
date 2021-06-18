@@ -23,7 +23,7 @@ export const NavBar = (props) => {
                     <Link className="navbar__link" to="/trades/sent">Offers Sent</Link>
                 </li>
                 <li className="navbar__item">
-                    <Link className="navbar__link" to="/trades/create">New Proposal</Link>
+                    <Link className="navbar__link" to="/trades/create">New Offer</Link>
                 </li>
                 <li className="navbar__item">
                     <Link className="navbar__link" to="/login"

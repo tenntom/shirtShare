@@ -24,3 +24,13 @@
     max-width: 20em;
     max-height: 20em;
 }
+
+.btn {
+    margin: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+.buttons {
+    display: flex;
+}

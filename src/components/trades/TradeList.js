@@ -12,7 +12,7 @@ export const TradeList = () => {
 
     useEffect(() => {
         getTrades()
-        .then(() => getShirts())
+            .then(() => getShirts())
     }, [])
 
 
@@ -38,7 +38,6 @@ export const TradeList = () => {
                             </div>
                         )
                     })
-                })
                 }
             </div>
         </>
