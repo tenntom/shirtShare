@@ -23,12 +23,12 @@ export const ShirtList = () => {
 
     return (
         <>
+        <h2>Shirts</h2>
             <button onClick={
                 () => history.push("./create")
             }>Add Shirt
             </button>
 
-            <h2>Shirts</h2>
             <div className="shirts">
                 {
                     activeShirts.map((shirt) => {

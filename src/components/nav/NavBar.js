@@ -13,18 +13,18 @@ export const NavBar = (props) => {
                 <li className="navbar__item active">
                     <Link className="navbar__link" to="/">Shirts</Link>
                 </li>
-                <li className="navbar__item">
+                {/* <li className="navbar__item">
                     <Link className="navbar__link" to="/trades/">All Offers</Link>
-                </li>
+                </li> */}
                 <li className="navbar__item">
                     <Link className="navbar__link" to="/trades/received">Offers Received</Link>
                 </li>
                 <li className="navbar__item">
                     <Link className="navbar__link" to="/trades/sent">Offers Sent</Link>
                 </li>
-                <li className="navbar__item">
+                {/* <li className="navbar__item">
                     <Link className="navbar__link" to="/trades/create">New Offer</Link>
-                </li>
+                </li> */}
                 <li className="navbar__item">
                     <Link className="navbar__link" to="/login"
                         onClick={
