@@ -21,10 +21,6 @@ export const ShirtDetail = (props) => {
         size: {}
     })
 
-
-
-
-
     const shirtId = props.shirt.id //what is the difference between this and setParams? Related to search?
 
     const history = useHistory()

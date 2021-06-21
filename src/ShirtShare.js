@@ -14,8 +14,9 @@ const Opening = () => (
         <small>Retain your Cash.</small> */}
         {/* <small className="line line1">Coolify your Closet.</small>
         <small className="line line2">Keep your Coin.</small> */}
-        <small className="line line2">Thrillify your Threads.</small>
-        <small className="line line1">Clear your Closet.</small>
+        {/* <small className="line line2">Thrillify your Threads.</small> */}
+        <small className="line line2">Reinvigorate your Wardrobe.</small>
+        <small className="line line1">Clean up your Closet.</small>
         <small className="line line2">Keep your Coin.</small>
         {/* <small className="line line3">Outhip the Hipsters.</small> */}
     </header>
