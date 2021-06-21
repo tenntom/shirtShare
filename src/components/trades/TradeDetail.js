@@ -5,8 +5,8 @@ import "./Trades.css"
 import { useParams, useHistory } from "react-router-dom"
 
 export const TradeDetail = () => {
-    const { trades, getTrades, getTradeById, removeTrade, addTrade } = useContext(TradeContext)
-    const { getShirtById, shirts, getShirts } = useContext(ShirtContext)
+    const { trades, getTrades, getTradeById, removeTrade, addTrade, updateTrade } = useContext(TradeContext)
+    const { getShirtById, shirts, getShirts, updateShirt } = useContext(ShirtContext)
     const [trade, setTrade] = useState({
         shirt: {},
         offerShirtId: 0,
@@ -48,6 +48,26 @@ export const TradeDetail = () => {
             })
     }
 
+    const handleAcceptTrade = () => {
+        const copyOfTradeState = { ...trade }
+        copyOfTradeState.accepted = true
+        copyOfTradeState.timeAccepted = Date.now()
+        updateTrade(copyOfTradeState)
+            .then(() => {
+                const copyOfShirtState = { ...trade.shirt }
+                copyOfShirtState.active = false
+                updateShirt(copyOfShirtState)
+            })
+            .then(() => {
+                const copyOfOfferShirtState = { ...offerShirt }
+                copyOfOfferShirtState.active = false
+                updateShirt(copyOfOfferShirtState)
+            })
+            .then(() => {
+                history.push("/trades")
+            })
+    }
+
 
     return (
         <section className="trade">
@@ -58,31 +78,31 @@ export const TradeDetail = () => {
             </div>
             <h3 className="trade__message">{trade.message}</h3>
             <div className="trade__accepted">{trade.accepted}</div>
-            <div className="trade__time">Time Sent: {trade.timestamp}</div>
-            <div className="buttons">
-            <div className="btn trade__delete__btn">
-                {
-                    offerShirt.id === parseInt(localStorage.getItem("shirtshare_user"))|| trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
-                    ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
-                    :<p> </p>
-                }
+            <div className="trade__time">Time Sent: {trade.timestamp}
+                {/* {new Date(`${trade.timestamp}`).toLocaleString("en-US")} Why won't this work?*/}
             </div>
-            <div className="accept-offer">
-                {
-                    trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
-                        ? <button className="btn trade__accept__btn" onClick=
-                            {(clickEvent) => {
-                                const copyOfTradeState = { ...trade }
-                                copyOfTradeState.accepted = true
-                                setTrade(copyOfTradeState)
-                                // addTrade(trade)
-                                // this needs to be an editTrade functon. See Kennels to figure out. 
-                            }
-                            }>Accept Trade</button>
-                        : <p> </p>
-                }
+            {
+                trade.accepted
+                ? <h5>The trade was accepted at {trade.timeAccepted}.</h5>
+                :
+                <div className="buttons">
+                <div className="btn trade__delete__btn">
+                    {
+                        offerShirt.id === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
+                            ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
+                            : <p> </p>
+                    }
+                </div>
+                <div className="accept-offer">
+                    {
+                        trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
+                            ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Trade</button>
+                            : <p> </p>
+                    }
+                </div>
+
             </div>
-            </div>
+            }
         </section>
     )
 }

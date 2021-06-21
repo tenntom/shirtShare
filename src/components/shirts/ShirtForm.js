@@ -44,10 +44,11 @@ export const ShirtForm = () => {
                 sizeId: sizeId,
                 imageURL: shirt.imageURL,
                 description: shirt.description,
+                active: true,
                 timestamp: Date().getTime
             }
             addShirt(newShirt)
-                .then(() => history.push("/shirts"))
+                .then(() => history.push("/"))
         }
     }
 

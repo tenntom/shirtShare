@@ -39,10 +39,10 @@ export const ApplicationViews = () => {
             <ShirtProvider>
                 <UserProvider>
                     <TradeProvider>
-                    <Route exact path="/shirts">
+                    <Route exact path="/">
                         <ShirtList />
                     </Route>
-                    <Route exact path="/shirts/create">
+                    <Route exact path="/create">
                         <ShirtForm />
                     </Route>
                     </TradeProvider>

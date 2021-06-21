@@ -41,10 +41,22 @@ export const ShirtProvider = (props) => {
         .then(setSizes)
     }
 
+    const updateShirt = shirt => {
+        return fetch(`http://localhost:7777/shirts/${shirt.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(shirt)
+        })
+            .then(getShirts)
+    }
+
+
 
     return (
         <ShirtContext.Provider value={{
-        shirts, getShirts, getShirtById, getSizes, shirtSizes, addShirt, removeShirt
+        shirts, getShirts, getShirtById, getSizes, shirtSizes, addShirt, removeShirt, updateShirt
     }}>
     {props.children}
     </ShirtContext.Provider>

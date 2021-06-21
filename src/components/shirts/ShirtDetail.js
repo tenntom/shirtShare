@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom"
 
 export const ShirtDetail = (props) => {
 
-    const { getShirtById, removeShirt } = useContext(ShirtContext)
+    const { getShirtById, removeShirt, updateShirt } = useContext(ShirtContext)
     const { getUserById, user } = useContext(UserContext)
 
     const [shirt, setShirt] = useState({
@@ -21,7 +21,7 @@ export const ShirtDetail = (props) => {
         size: {}
     })
 
-    const shirtId = props.shirt.id //what is the difference between this and setParams? Related to search?
+    const shirtId = props.shirt.id //need to better understand the difference between this and setParams.
 
     const history = useHistory()
 
@@ -38,10 +38,21 @@ export const ShirtDetail = (props) => {
     }, []
     )
 
-    const handleRemove = () => {
-        removeShirt(shirt.id)
-            .then(() => {
-                history.push("/shirts")
+    // const handleRemove = () => {
+    //     removeShirt(shirt.id)
+    //         .then(() => {
+    //             history.push("/")
+    //         })
+    // }
+
+
+    const handleArchiveShirt = () => {
+                const copyOfShirtState = { ...shirt }
+                copyOfShirtState.active = false
+                updateShirt(copyOfShirtState)
+                .then(()=> {                })
+                .then(() => {
+                history.push("/")
             })
     }
 
@@ -57,7 +68,7 @@ export const ShirtDetail = (props) => {
                 <h4 className="shirt__user">Posted by: {shirt.user.firstName}</h4>
                 <div className="shirt__remove__div"> {
                     shirt.user.id===user.id
-                    ?<button className="shirt__remove" onClick={handleRemove}>Remove Shirt</button>
+                    ?<button className="shirt__remove" onClick={handleArchiveShirt}>Remove Shirt</button>
                     :<h6> </h6>
                 }
                 </div>

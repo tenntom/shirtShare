@@ -14,34 +14,59 @@ export const OfferSentList = () => {
 
     const [userSentOffers, setUserSentOffers] = useState([])
     const [currentUserShirts, setCurrentUserShirts] = useState([])
-
+    
+    const [openSentOffers, setOpenSentOffers] = useState([])
+    const [acceptedSentOffers, setAcceptedSentOffers] = useState([])
 
     const history = useHistory()
 
-    const findOffersSent = () => {
-        const myOffers = []
+    const findOpenOffersSent = () => {
+        const myOpenOffers = []
         trades.map((trade) => {
             currentUserShirts.map((shirt) => {
-                if (trade.offerShirtId === shirt.id) {
-                    myOffers.push(trade)
+                if (trade.offerShirtId === shirt.id && trade.accepted === false) {
+                    myOpenOffers.push(trade)
                 }
             })
         })
-        return myOffers
+        return myOpenOffers
+    }
+    const findAcceptedOffersSent = () => {
+        const myAcceptedOffers = []
+        trades.map((trade) => {
+            currentUserShirts.map((shirt) => {
+                if (trade.offerShirtId === shirt.id && trade.accepted === true) {
+                    myAcceptedOffers.push(trade)
+                }
+            })
+        })
+        return myAcceptedOffers
     }
 
 
     useEffect(() => {
         getTrades()
             .then(() => getShirts())
+            .then(() => {
+                const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
+                getUserById(currentUserId)
+                    .then(() => setCurrentUserShirts(user.shirts))
+                    .then(() => findOpenOffersSent())
+                    .then((offerArray) => setOpenSentOffers(offerArray))
+                    .then(() => findAcceptedOffersSent())
+                    .then((otherOfferArray) => setAcceptedSentOffers(otherOfferArray))
+            }
+            )
     },[])
 
     useEffect(() => {
         const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
         getUserById(currentUserId)
             .then(() => setCurrentUserShirts(user.shirts))
-            .then(() => findOffersSent())
-            .then((offerArray) => setUserSentOffers(offerArray))
+            .then(() => findOpenOffersSent())
+            .then((offerArray) => setOpenSentOffers(offerArray))
+            .then(() => findAcceptedOffersSent())
+            .then((otherOfferArray) => setAcceptedSentOffers(otherOfferArray))
     }, [shirts])
 
     return (
@@ -52,9 +77,10 @@ export const OfferSentList = () => {
             }>
                 Propose Trade
             </button>
-            <div className="trades">
+            <div className="open-offers-sent">
+                <h3>Offers you sent:</h3>
                 {
-                    userSentOffers.map((trade) => {
+                    openSentOffers.map((trade) => {
                         return (
                             <div className="trade">
                                 <Link to={`/trades/detail/${trade.id}`} className="trade__link"
@@ -62,6 +88,22 @@ export const OfferSentList = () => {
                                     <h2> {trade.message}</h2>
                                 </Link>
                                 <h3>How about my shirt for your {trade.shirt.title} shirt?</h3>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className="accepted-offers-sent">
+                <h3>Offers that were accepted:</h3>
+                {
+                    openSentOffers.map((trade) => {
+                        return (
+                            <div className="trade">
+                                <Link to={`/trades/detail/${trade.id}`} className="trade__link"
+                                    key={trade.id}>
+                                    <h2> {trade.message}</h2>
+                                </Link>
+                                <h3>You traded your shirt for a {trade.shirt.title}</h3>
                             </div>
                         )
                     })

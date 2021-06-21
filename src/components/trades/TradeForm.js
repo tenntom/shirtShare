@@ -28,7 +28,11 @@ export const TradeForm = () => {
 
     const userShirts = shirts.filter(shirt => shirt.userId === currentUserId)
 
+    const activeUserShirts = userShirts.filter(shirt => shirt.active===true)
+
     const otherShirts = shirts.filter(shirt => shirt.userId !== currentUserId)
+
+    const activeOtherShirts = otherShirts.filter(shirt => shirt.active===true)
 
     const handleControlledInputChange = (event) => {
 
@@ -63,7 +67,7 @@ export const TradeForm = () => {
 
             }
             addTrade(newTrade)
-            .then(() => history.push("/trades"))
+            .then(() => history.push("/"))
         }
     }
 
@@ -75,7 +79,7 @@ export const TradeForm = () => {
                     <label htmlFor="recShirt">The shirt you want:</label>
                     <select name="shirtId" id="shirtId" className="form-control" value={trade.shirtId} onChange={handleControlledInputChange}>
                         <option value="0">Select a Shirt:</option>
-                        {otherShirts.map(s => (
+                        {activeOtherShirts.map(s => (
                             <option key={s.id} value={s.id}>
                                 {s.title}
                             </option>
@@ -91,7 +95,7 @@ export const TradeForm = () => {
                     <label htmlFor="shirt">Your Shirt to Offer:</label>
                     <select name="offerShirtId" id="offerShirtId" className="form-control" value={trade.offerShirtId} onChange={handleControlledInputChange}>
                         <option value="0">Select a Shirt:</option>
-                        {userShirts.map(s => (
+                        {activeUserShirts.map(s => (
                             <option key={s.id} value={s.id}>
                                 {s.title}
                             </option>

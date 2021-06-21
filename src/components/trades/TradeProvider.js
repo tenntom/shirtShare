@@ -34,10 +34,21 @@ export const TradeProvider = (props) => {
             .then(getTrades)
     }
 
+    const updateTrade = trade => {
+        return fetch(`http://localhost:7777/trades/${trade.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(trade)
+        })
+            .then(getTrades)
+    }
+
 
     return (
         <TradeContext.Provider value={{
-            trades, getTrades, addTrade, getTradeById, removeTrade, setTrades
+            trades, getTrades, addTrade, getTradeById, removeTrade, setTrades, updateTrade
         }}>
             {props.children}
         </TradeContext.Provider>
