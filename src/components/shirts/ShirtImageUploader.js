@@ -4,8 +4,28 @@ import { ShirtContext } from './ShirtProvider'
 
 export const ShirtImageUploader = () => {
 
+
+    const [shirt, setShirt] = useState({
+        title: "",
+        userId: 0,
+        sizeId: 0,
+        imageURL: "",
+        timestamp: 0,
+        keywords: []
+    })
+    
     const [loading, setLoading] = useState(false)
     const [image, setImage] = useState("")
+
+    // const handleControlledInputChange = (event) => {
+    //     const newShirt = { ...shirt }
+    //     newShirt[event.target.id] = event.target.value
+    //     setShirt(newShirt)
+    // }
+
+    const setURL = (url) => {
+        shirt.imageURL = url
+    }
 
     const uploadImage = async eventObj => {
         const files = eventObj.target.files
@@ -36,11 +56,13 @@ export const ShirtImageUploader = () => {
                 loading?(
                     <h4>Loading ...</h4>
                 ): (
-                    <img src={image} style={{width: '300px'}} id="imageURL" className="form-control" value={shirt.imageURL}/>
+                    <>
+                    <img src={image} style={{width: '300px'}} id="imageURL" value={shirt.imageURL}/>
+                    <h5>{image}</h5>
+                    {setURL(`${image}`)}
+                    </>
                 )
-
             }
-            
         </div>
     )
 }

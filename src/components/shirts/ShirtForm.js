@@ -25,6 +25,37 @@ export const ShirtForm = () => {
         getSizes()
     }, [])
 
+    // from here
+    const [loading, setLoading] = useState(false)
+    const [image, setImage] = useState("")
+
+    const setURL = (url) => {
+        shirt.imageURL = url
+    }
+
+    const uploadImage = async eventObj => {
+        const files = eventObj.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'ShirtShareImages')
+        setLoading(true)
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/tenntom/image/upload",
+            {
+                method: "POST",
+                body: data
+            }
+        )
+
+        const file = await res.json()
+
+        setImage(file.secure_url)
+        setLoading(false)
+    }
+
+
+    //to here. An experiment.
+
     const handleControlledInputChange = (event) => {
         const newShirt = { ...shirt }
         newShirt[event.target.id] = event.target.value
@@ -53,6 +84,8 @@ export const ShirtForm = () => {
         }
     }
 
+
+
     return (
         <form className="shirtForm">
             <h2 className="shirtForm__title">New Shirt</h2>
@@ -68,13 +101,13 @@ export const ShirtForm = () => {
                     <select name="sizeId" id="sizeId" className="form-control" value={shirt.sizeId} onChange={handleControlledInputChange}>
                         <option value="0">Select a Size:</option>
                         {
-                            shirtSizes.map((s) => 
-                            {
-                                return(
-                                <option key={s.id} value={s.id}>
-                                    {s.shirtSize}
-                                </option>
-                                )}
+                            shirtSizes.map((s) => {
+                                return (
+                                    <option key={s.id} value={s.id}>
+                                        {s.shirtSize}
+                                    </option>
+                                )
+                            }
                             )
                         }
                     </select>
@@ -93,16 +126,33 @@ export const ShirtForm = () => {
                 </div>
             </fieldset> */}
             {/* <div className="buttons"> */}
-        <div className="form-group">
-            <ShirtImageUploader />
-        </div>
-        <div className="form-group save-shirt">
-            {/* <button className="btn btn-upload" onClick={ShirtImageUploader}>
+            <div className="form-group">
+                <div className="image-upload">
+                    <h3>Upload Shirt Image</h3>
+                    <input type="file" name="file" placeholder="Upload an image." onChange={uploadImage} />
+
+                    {
+                        loading ? (
+                            <h4>Loading ...</h4>
+                        ) : (
+                            <>
+                                <img src={image} style={{ width: '300px' }} id="imageURL" value={shirt.imageURL} />
+                                <h5>{image}</h5>
+                                {setURL(`${image}`)}
+                            </>
+                        )
+                    }
+                </div>
+                {/* {ShirtImageUploader()} */}
+                {/* <ShirtImageUploader /> */}
+            </div>
+            <div className="form-group save-shirt">
+                {/* <button className="btn btn-upload" onClick={ShirtImageUploader}>
                 Upload Image
             </button> */}
-            <button className="btn btn-primary" onClick={handleClickSaveShirt}>
-                Save Shirt
-            </button>
+                <button className="btn btn-primary" onClick={handleClickSaveShirt}>
+                    Save Shirt
+                </button>
             </div>
             {/* </div> */}
         </form>
