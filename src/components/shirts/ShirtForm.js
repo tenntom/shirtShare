@@ -3,6 +3,7 @@ import { ShirtContext } from "../shirts/ShirtProvider"
 // import { UserContext } from "../users/UserProvider"
 import "./Shirts.css"
 import { useHistory } from 'react-router-dom';
+import { ShirtImageUploader } from "./ShirtImageUploader";
 
 export const ShirtForm = () => {
     const { addShirt, getSizes, shirtSizes } = useContext(ShirtContext)
@@ -85,20 +86,25 @@ export const ShirtForm = () => {
                     <input type="text" id="description" className="form-control" placeholder="Description" value={shirt.description} onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
-            <fieldset>
+            {/* <fieldset>
                 <div className="form-group">
                     <label htmlFor="imageURL">Photo URL - Temporary:</label>
                     <input type="text" id="imageURL" className="form-control" placeholder="Image URL" value={shirt.imageURL} onChange={handleControlledInputChange} />
                 </div>
-            </fieldset>
-            <div className="buttons">
-            <button className="btn btn-upload">
+            </fieldset> */}
+            {/* <div className="buttons"> */}
+        <div className="form-group">
+            <ShirtImageUploader />
+        </div>
+        <div className="form-group save-shirt">
+            {/* <button className="btn btn-upload" onClick={ShirtImageUploader}>
                 Upload Image
-            </button>
+            </button> */}
             <button className="btn btn-primary" onClick={handleClickSaveShirt}>
                 Save Shirt
             </button>
             </div>
+            {/* </div> */}
         </form>
     )
 

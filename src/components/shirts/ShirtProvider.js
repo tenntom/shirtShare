@@ -54,6 +54,10 @@ export const ShirtProvider = (props) => {
 
 
 
+
+
+
+
     return (
         <ShirtContext.Provider value={{
         shirts, getShirts, getShirtById, getSizes, shirtSizes, addShirt, removeShirt, updateShirt
