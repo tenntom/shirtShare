@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { TradeContext } from "./TradeProvider"
 import { Link, useHistory } from "react-router-dom"
 import "./Trades.css"
-import { ShirtContext, getShirtById } from "../shirts/ShirtProvider"
+import { ShirtContext } from "../shirts/ShirtProvider"
 import { UserContext } from "../users/UserProvider"
 
 
@@ -12,7 +12,6 @@ export const OfferSentList = () => {
     const { shirts, getShirts } = useContext(ShirtContext)
     const { getUserById, user } = useContext(UserContext)
 
-    const [userSentOffers, setUserSentOffers] = useState([])
     const [currentUserShirts, setCurrentUserShirts] = useState([])
     
     const [openSentOffers, setOpenSentOffers] = useState([])
@@ -24,7 +23,7 @@ export const OfferSentList = () => {
         const myOpenOffers = []
         trades.map((trade) => {
             currentUserShirts.map((shirt) => {
-                if (trade.offerShirtId === shirt.id && trade.accepted === false) {
+                if (trade.offerShirtId === shirt.id && trade.timeAccepted === 0) {
                     myOpenOffers.push(trade)
                 }
             })
@@ -35,7 +34,7 @@ export const OfferSentList = () => {
         const myAcceptedOffers = []
         trades.map((trade) => {
             currentUserShirts.map((shirt) => {
-                if (trade.offerShirtId === shirt.id && trade.accepted === true) {
+                if (trade.offerShirtId === shirt.id && trade.timeAccepted > 0) {
                     myAcceptedOffers.push(trade)
                 }
             })
@@ -78,7 +77,7 @@ export const OfferSentList = () => {
                 Propose Trade
             </button>
             <div className="open-offers-sent">
-                <h3>Offers you sent:</h3>
+                <h3>Offers You Sent:</h3>
                 {
                     openSentOffers.map((trade) => {
                         return (
@@ -94,9 +93,9 @@ export const OfferSentList = () => {
                 }
             </div>
             <div className="accepted-offers-sent">
-                <h3>Offers that were accepted:</h3>
+                <h3>Offers Accepted:</h3>
                 {
-                    openSentOffers.map((trade) => {
+                    acceptedSentOffers.map((trade) => {
                         return (
                             <div className="trade">
                                 <Link to={`/trades/detail/${trade.id}`} className="trade__link"

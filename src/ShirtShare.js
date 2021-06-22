@@ -9,16 +9,9 @@ import {NavBar} from "./components/nav/NavBar"
 const Opening = () => (
     <header className="mainPageHeader">
         <h2>Secondhand ShirtShare</h2>
-        {/* <small>Reinvigorate your Wardrobe.</small>
-        <small>Refresh your closet.</small>
-        <small>Retain your Cash.</small> */}
-        {/* <small className="line line1">Coolify your Closet.</small>
-        <small className="line line2">Keep your Coin.</small> */}
-        {/* <small className="line line2">Thrillify your Threads.</small> */}
-        <small className="line line2">Reinvigorate your Wardrobe.</small>
-        <small className="line line1">Clean up your Closet.</small>
+        <small className="line line2">Refresh your Wardrobe.</small>
+        <small className="line line1">Clean your Closet.</small>
         <small className="line line2">Keep your Coin.</small>
-        {/* <small className="line line3">Outhip the Hipsters.</small> */}
     </header>
 )
 

@@ -8,7 +8,7 @@ export const OffersReceivedList = () => {
     const { trades, getTrades } = useContext(TradeContext)
     const { shirts, getShirts, getShirtById } = useContext(ShirtContext)
 
-    const [currentOffers, setCurrentOffers] = useState([])
+    // const [currentOffers, setCurrentOffers] = useState([])
     const [acceptedOffers, setAcceptedOffers] = useState([])
     const [openOffers, setOpenOffers] = useState([])
 
@@ -20,8 +20,8 @@ export const OffersReceivedList = () => {
         getTrades()
         .then(() => {
             const  theseOffers = trades.filter(trade => trade.shirt.userId === currentUserId)
-            const theseAcceptedOffers = theseOffers.filter(trade => trade.accepted === true)
-            const theseOpenOffers = theseOffers.filter(trade => trade.accepted === false)
+            const theseAcceptedOffers = theseOffers.filter(trade => trade.timeAccepted !== 0)
+            const theseOpenOffers = theseOffers.filter(trade => trade.timeAccepted === 0)
             setAcceptedOffers(theseAcceptedOffers)
             setOpenOffers(theseOpenOffers)
         })
@@ -29,17 +29,11 @@ export const OffersReceivedList = () => {
 
     useEffect(() => {
         const  theseOffers = trades.filter(trade => trade.shirt.userId === currentUserId)
-        const theseAcceptedOffers = theseOffers.filter(trade => trade.accepted === true)
-        const theseOpenOffers = theseOffers.filter(trade => trade.accepted === false)
+        const theseAcceptedOffers = theseOffers.filter(trade => trade.timeAccepted !== 0)
+        const theseOpenOffers = theseOffers.filter(trade => trade.timeAccepted === 0)
         setAcceptedOffers(theseAcceptedOffers)
         setOpenOffers(theseOpenOffers)
     }, [trades])
-
-    // useEffect(() => {
-    //     const  theseOffers = trades.filter(trade => trade.shirt.userId === currentUserId)
-    //     setCurrentOffers(theseOffers)
-    // }, [])
-    
     
 
     

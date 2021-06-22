@@ -11,14 +11,11 @@ export const TradeDetail = () => {
         shirt: {},
         offerShirtId: 0,
         message: "",
-        accepted: false,
+        timeAccepted: 0,
         timestamp: 0,
     })
 
     const [offerShirt, setOfferShirt] = useState({})
-
-    // const [offerSender, setOfferSender]
-    // const [offerReceiver, setOfferReceiver]
 
     const history = useHistory()
 
@@ -50,7 +47,6 @@ export const TradeDetail = () => {
 
     const handleAcceptTrade = () => {
         const copyOfTradeState = { ...trade }
-        copyOfTradeState.accepted = true
         copyOfTradeState.timeAccepted = Date.now()
         updateTrade(copyOfTradeState)
             .then(() => {
@@ -64,7 +60,7 @@ export const TradeDetail = () => {
                 updateShirt(copyOfOfferShirtState)
             })
             .then(() => {
-                history.push("/trades")
+                history.push("/")
             })
     }
 
@@ -77,12 +73,11 @@ export const TradeDetail = () => {
                 <img src={offerShirt.imageURL} alt="sender's t-shirt" className="trade_photo sender_shirt" />
             </div>
             <h3 className="trade__message">{trade.message}</h3>
-            <div className="trade__accepted">{trade.accepted}</div>
             <div className="trade__time">Time Sent: {trade.timestamp}
                 {/* {new Date(`${trade.timestamp}`).toLocaleString("en-US")} Why won't this work?*/}
             </div>
             {
-                trade.accepted
+                trade.timeAccepted
                 ? <h5>The trade was accepted at {trade.timeAccepted}.</h5>
                 :
                 <div className="buttons">

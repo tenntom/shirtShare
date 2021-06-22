@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ShirtContext } from "../shirts/ShirtProvider"
-// import { UserContext } from "../users/UserProvider"
 import "./Shirts.css"
 import { useHistory } from 'react-router-dom';
-import { ShirtImageUploader } from "./ShirtImageUploader";
 
 export const ShirtForm = () => {
     const { addShirt, getSizes, shirtSizes } = useContext(ShirtContext)
@@ -77,7 +75,9 @@ export const ShirtForm = () => {
                 imageURL: shirt.imageURL,
                 description: shirt.description,
                 active: true,
-                timestamp: Date().getTime
+                timestamp: Date().getTime,
+                user:{},
+                size:{}
             }
             addShirt(newShirt)
                 .then(() => history.push("/"))
@@ -137,7 +137,6 @@ export const ShirtForm = () => {
                         ) : (
                             <>
                                 <img src={image} style={{ width: '300px' }} id="imageURL" value={shirt.imageURL} />
-                                <h5>{image}</h5>
                                 {setURL(`${image}`)}
                             </>
                         )

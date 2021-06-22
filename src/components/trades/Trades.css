@@ -34,11 +34,18 @@
 .buttons {
     display: flex;
 }
-/* 
-.trades-accepted {
-    border: solid 1px red
-}
+ 
+/* .trades-accepted {
+    /* border: solid 1px red */
+/* } */ 
 
 .trades-proposed {
-    border: solid 1px red
-} */
+    margin-bottom: 4em;
+    margin-top: 3em;
+    /* border: solid 1px red */
+}
+
+.open-offers-sent {
+    margin-bottom: 4em;
+    margin-top: 3em;
+}
