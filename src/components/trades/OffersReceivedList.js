@@ -8,13 +8,13 @@ export const OffersReceivedList = () => {
     const { trades, getTrades } = useContext(TradeContext)
     const { shirts, getShirts, getShirtById } = useContext(ShirtContext)
 
-    // const [currentOffers, setCurrentOffers] = useState([])
     const [acceptedOffers, setAcceptedOffers] = useState([])
     const [openOffers, setOpenOffers] = useState([])
 
     const history = useHistory()
     const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
 
+    //Run this on page load.
 
     useEffect(() => {
         getTrades()
@@ -27,6 +27,8 @@ export const OffersReceivedList = () => {
         })
     }, [])
 
+    //Run again each time trades are updated.
+
     useEffect(() => {
         const  theseOffers = trades.filter(trade => trade.shirt.userId === currentUserId)
         const theseAcceptedOffers = theseOffers.filter(trade => trade.timeAccepted !== 0)
@@ -35,8 +37,7 @@ export const OffersReceivedList = () => {
         setOpenOffers(theseOpenOffers)
     }, [trades])
     
-
-    
+    //first return the open offers, then the accepted offers. 
     return (
         <>
             <h2>Trades</h2>

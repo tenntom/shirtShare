@@ -41,7 +41,7 @@ export const TradeDetail = () => {
     const handleRemoveTrade = () => {
         removeTrade(trade.id)
             .then(() => {
-                history.push("/trades")
+                history.push("/")
             })
     }
 
@@ -65,6 +65,7 @@ export const TradeDetail = () => {
     }
 
 
+
     return (
         <section className="trade">
             <h3>Would you like to trade your {trade.shirt.title} shirt for my {offerShirt.title} shirt?</h3>
@@ -74,7 +75,9 @@ export const TradeDetail = () => {
             </div>
             <h3 className="trade__message">{trade.message}</h3>
             <div className="trade__time">Time Sent: {trade.timestamp}
-                {/* {new Date(`${trade.timestamp}`).toLocaleString("en-US")} Why won't this work?*/}
+                {
+                new Date(trade.timestamp).toLocaleString()
+                }
             </div>
             {
                 trade.timeAccepted
@@ -83,7 +86,7 @@ export const TradeDetail = () => {
                 <div className="buttons">
                 <div className="btn trade__delete__btn">
                     {
-                        offerShirt.id === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
+                        offerShirt.userId === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
                             ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
                             : <p> </p>
                     }

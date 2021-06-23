@@ -10,7 +10,7 @@ import { TradeForm } from "./components/trades/TradeForm"
 import { OffersReceivedList } from "./components/trades/OffersReceivedList"
 import { OfferSentList } from "./components/trades/OffersSentList"
 
-
+// Two main routes here, one for the trades/offers and another for the shirt postings.
 
 export const ApplicationViews = () => {
     return (

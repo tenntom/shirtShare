@@ -23,7 +23,8 @@ export const ShirtForm = () => {
         getSizes()
     }, [])
 
-    // from here
+    // uploader section
+
     const [loading, setLoading] = useState(false)
     const [image, setImage] = useState("")
 
@@ -52,7 +53,7 @@ export const ShirtForm = () => {
     }
 
 
-    //to here. An experiment.
+    //end of uploading section.
 
     const handleControlledInputChange = (event) => {
         const newShirt = { ...shirt }
@@ -119,13 +120,6 @@ export const ShirtForm = () => {
                     <input type="text" id="description" className="form-control" placeholder="Description" value={shirt.description} onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
-            {/* <fieldset>
-                <div className="form-group">
-                    <label htmlFor="imageURL">Photo URL - Temporary:</label>
-                    <input type="text" id="imageURL" className="form-control" placeholder="Image URL" value={shirt.imageURL} onChange={handleControlledInputChange} />
-                </div>
-            </fieldset> */}
-            {/* <div className="buttons"> */}
             <div className="form-group">
                 <div className="image-upload">
                     <h3>Upload Shirt Image</h3>
@@ -142,18 +136,12 @@ export const ShirtForm = () => {
                         )
                     }
                 </div>
-                {/* {ShirtImageUploader()} */}
-                {/* <ShirtImageUploader /> */}
             </div>
             <div className="form-group save-shirt">
-                {/* <button className="btn btn-upload" onClick={ShirtImageUploader}>
-                Upload Image
-            </button> */}
                 <button className="btn btn-primary" onClick={handleClickSaveShirt}>
                     Save Shirt
                 </button>
             </div>
-            {/* </div> */}
         </form>
     )
 
