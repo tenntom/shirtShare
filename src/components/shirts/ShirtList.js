@@ -24,9 +24,15 @@ export const ShirtList = () => {
     return (
         <>
         <h2>Shirts</h2>
-            <button onClick={
+            <button className="create-shirt-btn"onClick={
                 () => history.push("./create")
             }>Add Shirt
+            </button>
+
+            <button className="propose-trade-btn" onClick={
+                () => history.push("/trades/create")
+            }>
+                Propose Trade
             </button>
 
             <div className="shirts">

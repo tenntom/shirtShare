@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState, SimpleDateTime } from "react"
 import { TradeContext } from "./TradeProvider"
 import { ShirtContext } from "../shirts/ShirtProvider"
 import "./Trades.css"
 import { useParams, useHistory } from "react-router-dom"
+// import SimpleDateTime  from 'react-simple-timestamp-to-date'
 
 export const TradeDetail = () => {
     const { trades, getTrades, getTradeById, removeTrade, addTrade, updateTrade } = useContext(TradeContext)
@@ -74,33 +75,32 @@ export const TradeDetail = () => {
                 <img src={offerShirt.imageURL} alt="sender's t-shirt" className="trade_photo sender_shirt" />
             </div>
             <h3 className="trade__message">{trade.message}</h3>
-            <div className="trade__time">Time Sent: {trade.timestamp}
-                {
-                new Date(trade.timestamp).toLocaleString()
-                }
+            <div className="trade__time">Time Sent: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)}
             </div>
+            <div>
             {
                 trade.timeAccepted
-                ? <h5>The trade was accepted at {trade.timeAccepted}.</h5>
-                :
-                <div className="buttons">
-                <div className="btn trade__delete__btn">
-                    {
-                        offerShirt.userId === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
-                            ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
-                            : <p> </p>
-                    }
-                </div>
-                <div className="accept-offer">
-                    {
-                        trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
-                            ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Trade</button>
-                            : <p> </p>
-                    }
-                </div>
+                    ? <h5>The trade was accepted at {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timeAccepted)}.</h5>
+                    :
+                    <div className="buttons">
+                        <div className="btn trade__delete__btn">
+                            {
+                                offerShirt.userId === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
+                                    ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
+                                    : <p> </p>
+                            }
+                        </div>
+                        <div className="accept-offer">
+                            {
+                                trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
+                                    ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Trade</button>
+                                    : <p> </p>
+                            }
+                        </div>
 
-            </div>
+                    </div>
             }
+            </div>
         </section>
     )
 }

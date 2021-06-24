@@ -23,7 +23,7 @@ export const TradeList = () => {
         const theseActiveTrades = trades.filter(trade => trade.accepted === false)
         setActiveTrades(theseActiveTrades)
     }, [trades])
-
+    
     useEffect(() =>{
         const theseAcceptedTrades = trades.filter(trade => trade.accepted === true)
         setAcceptedTrades(theseAcceptedTrades)

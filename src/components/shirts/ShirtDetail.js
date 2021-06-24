@@ -40,92 +40,7 @@ export const ShirtDetail = (props) => {
     }, []
     )
 
-    // useEffect(() => {
-    //     getTrades()
-    // }, [shirt])
 
-    // const handleRemove = () => {
-    //     removeShirt(shirt.id)
-    //         .then(() => {
-    //             history.push("/")
-    //         })
-    // }
-
-    // const deleteTradeByShirt = (shirt) => {
-    //     trades.map((trade) => {
-    //         if (trade.shirtId === shirt.id || trade.offerShirtId === shirt.id) {
-    //             removeTrade(trade.id)
-    //         }
-    //     })
-    // }
-
-    // const deleteTradeByShirt = (shirt) => {
-    //     for (trade of trades) {
-    //         if (trade.offerShirtId === shirt.id) {
-    //             removeTrade(trade.id)
-    //         }
-    //     }
-    // }
-
-    // const deleteTradeByOfferShirt = (shirt) => {
-    //     trades.map((trade) => {
-    //         if (trade.offerShirtId === shirt.id) {
-    //             removeTrade(trade.id)
-    //         }
-    //     })
-    // }
-
-    // I think we can actually delete this shirt because it should not be part of any active trades anymore. 
-
-
-
-    // const handleArchiveShirt = () => {
-    //     getTrades()
-    //     .then(() => {
-    //     const copyOfShirtState = { ...shirt }
-    //     copyOfShirtState.active = false
-    //     deleteTradeByShirt(copyOfShirtState)
-    //     deleteTradeByOfferShirt(copyOfShirtState)
-    //     updateShirt(copyOfShirtState)
-    //     // .then(()=> {deleteTradeByShirtId()})
-    //     // .then(() => {deleteTradeByOfferShirtId())
-    //     history.push("/")
-    //     })
-    // }
-
-    // const handleDeleteShirt = () => {
-    //     getTrades()
-    //         .then(() => { deleteTradeByShirt(shirt) })
-    //         .then(() => { removeShirt(shirt.id)
-    //         })
-    //         .then(() => history.push("/")
-    //         )
-    // }
-
-    // const handleDeleteShirt = () => {
-    //     getTrades()
-    //         .then(() => { 
-    //             console.log(shirt)
-    //             const shirtTrades = trades.filter((trade) => trade.shirtId === shirt.id)
-    //             shirtTrades.forEach(shirtTrade => removeTrade(shirtTrade.id))  
-    //             })
-    //         .then(() => { 
-    //             const offerShirtTrades = trades.filter((trade) => trade.offerShirtId === shirt.id)
-    //             offerShirtTrades.forEach(offerShirtTrade => removeTrade(offerShirtTrade.id))  
-    //             })
-    //         .then(() => { 
-    //             removeShirt(shirt.id)
-    //         })
-    //         .then(()=> getTrades)
-    //         .then(() => history.push("/")
-    //         )
-    // }
-
-    // const tradesByShirts = (tradeObj) => {
-    //     if((tradeObj.shirtId === shirt.id) || (tradeObj)
-    // }
-
-    //experimenting
     const handleDeleteShirt = () => {
         getTrades()
             .then(() => { 
@@ -141,18 +56,6 @@ export const ShirtDetail = (props) => {
             )
     }
 
-    // const handleDeleteShirt = (shirt) => {
-    //     deleteTradeByShirt(shirt.id)
-    //     .then(() => {
-    //         deleteTradeByOfferShirt(shirt.id)
-    //     })
-    //     .then(() => {
-    //             removeShirt(shirt.id)
-    //     })
-    //     .then(() => {
-    //             history.push("/")
-    //     })
-    // }
 
     return (
         <>

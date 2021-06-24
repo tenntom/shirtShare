@@ -6,7 +6,6 @@ import { ShirtContext } from "../shirts/ShirtProvider"
 
 export const OffersReceivedList = () => {
     const { trades, getTrades } = useContext(TradeContext)
-    const { shirts, getShirts, getShirtById } = useContext(ShirtContext)
 
     const [acceptedOffers, setAcceptedOffers] = useState([])
     const [openOffers, setOpenOffers] = useState([])
@@ -18,13 +17,13 @@ export const OffersReceivedList = () => {
 
     useEffect(() => {
         getTrades()
-        .then(() => {
-            const  theseOffers = trades.filter(trade => trade.shirt.userId === currentUserId)
-            const theseAcceptedOffers = theseOffers.filter(trade => trade.timeAccepted !== 0)
-            const theseOpenOffers = theseOffers.filter(trade => trade.timeAccepted === 0)
-            setAcceptedOffers(theseAcceptedOffers)
-            setOpenOffers(theseOpenOffers)
-        })
+        // .then(() => {
+        //     const  theseOffers = trades.filter(trade => trade.shirt.userId === currentUserId)
+        //     const theseAcceptedOffers = theseOffers.filter(trade => trade.timeAccepted !== 0)
+        //     const theseOpenOffers = theseOffers.filter(trade => trade.timeAccepted === 0)
+        //     setAcceptedOffers(theseAcceptedOffers)
+        //     setOpenOffers(theseOpenOffers)
+        // })
     }, [])
 
     //Run again each time trades are updated.
@@ -40,8 +39,13 @@ export const OffersReceivedList = () => {
     //first return the open offers, then the accepted offers. 
     return (
         <>
-            <h2>Trades</h2>
-            <button onClick={
+            <h2>Offers Received</h2>
+            <button className="create-shirt-btn"onClick={
+                () => history.push("./create")
+            }>Add Shirt
+            </button>
+
+            <button className="propose-trade-btn" onClick={
                 () => history.push("/trades/create")
             }>
                 Propose Trade

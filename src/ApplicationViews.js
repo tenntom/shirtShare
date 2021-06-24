@@ -18,9 +18,9 @@ export const ApplicationViews = () => {
             <TradeProvider>
                     <ShirtProvider>
                         <UserProvider>
-                            <Route exact path="/trades">
+                            {/* <Route exact path="/trades">
                                 <TradeList />
-                            </Route>
+                            </Route> */}
                             <Route exact path="/trades/received">
                                 <OffersReceivedList />
                             </Route>
