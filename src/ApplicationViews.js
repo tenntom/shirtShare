@@ -45,6 +45,9 @@ export const ApplicationViews = () => {
                     <Route exact path="/create">
                         <ShirtForm />
                     </Route>
+                    <Route exact path="/edit/:shirtId(\d+)">
+                        <ShirtForm />
+                    </Route>
                     </TradeProvider>
                 </UserProvider>
             </ShirtProvider>

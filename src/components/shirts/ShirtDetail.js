@@ -43,19 +43,18 @@ export const ShirtDetail = (props) => {
 
     const handleDeleteShirt = () => {
         getTrades()
-            .then(() => { 
+            .then(() => {
                 let shirtTrades = trades.filter((trade) =>
-               ( trade.shirtId === shirt.id) || (trade.offerShirtId === shirt.id))
-                shirtTrades.forEach(shirtTrade => removeTrade(shirtTrade.id))  
-                })
-            .then(() => { 
+                    (trade.shirtId === shirt.id) || (trade.offerShirtId === shirt.id))
+                shirtTrades.forEach(shirtTrade => removeTrade(shirtTrade.id))
+            })
+            .then(() => {
                 removeShirt(shirt.id)
             })
-            .then(()=> getTrades)
+            .then(() => getTrades)
             .then(() => history.push("/")
             )
     }
-
 
     return (
         <>
@@ -69,7 +68,12 @@ export const ShirtDetail = (props) => {
                 <h4 className="shirt__user">Posted by: {shirt.user.firstName}</h4>
                 <div className="shirt__remove__div"> {
                     shirt.user.id === user.id
-                        ? <button className="shirt__remove" onClick={handleDeleteShirt}>Remove Shirt</button>
+                        ? <div className="buttons">
+                            <button className="shirt__remove" onClick={handleDeleteShirt}>Delete Shirt</button>
+                            <button className="shirt__edit" onClick={()=> {
+                                history.push(`/edit/${shirt.id}`)
+                            }}>Edit Shirt</button>
+                        </div>
                         : <h6> </h6>
                 }
                 </div>

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ShirtContext } from "../shirts/ShirtProvider"
 import "./Shirts.css"
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 export const ShirtForm = () => {
-    const { addShirt, getSizes, shirtSizes } = useContext(ShirtContext)
+    const { addShirt, getSizes, shirtSizes, getShirtById, updateShirt } = useContext(ShirtContext)
 
     const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
 
@@ -12,16 +12,31 @@ export const ShirtForm = () => {
         title: "",
         userId: 0,
         sizeId: 0,
+        description: "",
         imageURL: "",
         timestamp: 0,
-        keywords: []
     })
 
     const history = useHistory();
 
+    const { shirtId } = useParams()
+
     useEffect(() => {
         getSizes()
+            .then(() => {
+                if (shirtId) {
+                    getShirtById(shirtId)
+                        .then((shirt) => {
+                            setShirt(shirt)
+                            setIsLoading(false)
+                        })
+                } else {
+                    setIsLoading(false)
+                }
+            })
     }, [])
+
+    const [isLoading, setIsLoading] = useState(true)
 
     // uploader section
 
@@ -66,30 +81,49 @@ export const ShirtForm = () => {
 
         const sizeId = parseInt(shirt.sizeId)
 
-        if (shirt.title === null) {
-            window.alert("Please enter a title for your shirt.")
+        if ((shirt.title === "") || (shirt.sizeId === 0) || (shirt.description === "")) {
+            window.alert("Please fill out your shirt information.")
         } else {
-            const newShirt = {
-                title: shirt.title,
-                userId: currentUserId,
-                sizeId: sizeId,
-                imageURL: shirt.imageURL,
-                description: shirt.description,
-                active: true,
-                timestamp: Date().getTime,
-                user:{},
-                size:{}
+            setIsLoading(true)
+            if (shirtId) {
+                updateShirt({
+                    id: shirt.id,
+                    title: shirt.title,
+                    userId: currentUserId,
+                    // sizeId: sizeId,
+                    sizeId: shirt.sizeId,
+                    imageURL: shirt.imageURL,
+                    description: shirt.description,
+                    active: true,
+                    timestamp: shirt.timestamp,
+                    user: {},
+                    size: {}
+                })
+                    .then(() => history.push("/"))
+            } else {
+                addShirt({
+                    title: shirt.title,
+                    userId: currentUserId,
+                    sizeId: sizeId,
+                    imageURL: shirt.imageURL,
+                    description: shirt.description,
+                    active: true,
+                    timestamp: Date().getTime,
+                    user: {},
+                    size: {}
+                })
+                    .then(() => history.push("/"))
             }
-            addShirt(newShirt)
-                .then(() => history.push("/"))
         }
     }
 
 
-
     return (
         <form className="shirtForm">
-            <h2 className="shirtForm__title">New Shirt</h2>
+            {
+                shirtId ? <h2 className="shirtForm__title">Edit Shirt</h2>
+                    : <h2 className="shirtForm__title">New Shirt</h2>
+            }
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="title">Shirt Title:</label>
@@ -121,21 +155,28 @@ export const ShirtForm = () => {
                 </div>
             </fieldset>
             <div className="form-group">
-                <div className="image-upload">
-                    <h3>Upload Shirt Image</h3>
-                    <input type="file" name="file" placeholder="Upload an image." onChange={uploadImage} />
-
-                    {
-                        loading ? (
-                            <h4>Loading ...</h4>
-                        ) : (
-                            <>
-                                <img src={image} style={{ width: '300px' }} id="imageURL" value={shirt.imageURL} />
-                                {setURL(`${image}`)}
-                            </>
-                        )
-                    }
+                {shirtId? 
+                <div>
+                    <label htmlFor="imageURL">Image URL:</label>
+                    <input type="text" id="imageURL" className="form-control" placeholder="Image URL" value={shirt.imageURL} onChange={handleControlledInputChange} />
                 </div>
+                :
+                    <div className="image-upload">
+                        <h3>Upload Shirt Image</h3>
+                        <input type="file" name="file" placeholder="Upload an image." onChange={uploadImage} />
+
+                        {
+                            loading ? (
+                                <h4>Loading ...</h4>
+                            ) : (
+                                <>
+                                    <img src={image} style={{ width: '300px' }} id="imageURL" value={shirt.imageURL} />
+                                    {setURL(`${image}`)}
+                                </>
+                            )
+                        }
+                    </div>
+                }
             </div>
             <div className="form-group save-shirt">
                 <button className="btn btn-primary" onClick={handleClickSaveShirt}>
