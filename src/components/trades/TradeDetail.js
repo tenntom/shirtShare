@@ -31,7 +31,7 @@ export const TradeDetail = () => {
     useEffect(() => {
         getTradeById(tradeId)
             .then(thisTrade => setTrade(thisTrade))
-    }, [tradeId])
+    }, offerShirt)
 
     useEffect(() => {
         getShirtById(trade.offerShirtId)
@@ -92,7 +92,7 @@ export const TradeDetail = () => {
                         </div>
                         <div className="accept-offer">
                             {
-                                trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
+                                trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user")) && trade.shirt.active && offerShirt.active
                                     ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Trade</button>
                                     : <p> </p>
                             }
