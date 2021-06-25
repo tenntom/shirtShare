@@ -35,20 +35,19 @@
     display: flex;
 }
  
-/* .trades-accepted {
-    /* border: solid 1px red */
-/* } */ 
 
 .trades-proposed {
     margin-bottom: 4em;
     margin-top: 3em;
-    /* border: solid 1px red */
 }
 
 .open-offers-sent {
     margin-bottom: 4em;
     margin-top: 3em;
 }
+
+
+/* I cannot figure out how to get these buttons to line up.  */
 
 .trade__accept__btn {
     margin: 2em;

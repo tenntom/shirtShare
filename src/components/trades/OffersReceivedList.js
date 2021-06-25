@@ -17,13 +17,6 @@ export const OffersReceivedList = () => {
 
     useEffect(() => {
         getTrades()
-        // .then(() => {
-        //     const  theseOffers = trades.filter(trade => trade.shirt.userId === currentUserId)
-        //     const theseAcceptedOffers = theseOffers.filter(trade => trade.timeAccepted !== 0)
-        //     const theseOpenOffers = theseOffers.filter(trade => trade.timeAccepted === 0)
-        //     setAcceptedOffers(theseAcceptedOffers)
-        //     setOpenOffers(theseOpenOffers)
-        // })
     }, [])
 
     //Run again each time trades are updated.

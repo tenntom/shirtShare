@@ -4,6 +4,8 @@ import { Link, useHistory } from "react-router-dom"
 import "./Trades.css"
 import { ShirtContext } from "../shirts/ShirtProvider"
 
+//This module shows all trades and is currently not used as it would show all trades to all users. I think it is worth keeping in case we decide to do that in the future.
+
 export const TradeList = () => {
     const { trades, getTrades } = useContext(TradeContext)
     const { shirts, getShirts } = useContext(ShirtContext)
