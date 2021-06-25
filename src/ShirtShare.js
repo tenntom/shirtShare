@@ -6,12 +6,14 @@ import { Register } from "./components/auth/Register";
 import "./ShirtShare.css"
 import {NavBar} from "./components/nav/NavBar"
 
+
+// Opening to show up as a header on all pages.
 const Opening = () => (
     <header className="mainPageHeader">
         <h2>Secondhand ShirtShare</h2>
-        <small>Reinvigorate your Wardrobe.</small>
-        <small>Refresh your closet.</small>
-        <small>Retain your Cash.</small>
+        <small className="line line2">Refresh your Wardrobe.</small>
+        <small className="line line1">Clean your Closet.</small>
+        <small className="line line2">Keep your Coin.</small>
     </header>
 )
 

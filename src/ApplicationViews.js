@@ -7,8 +7,10 @@ import { ShirtProvider } from "./components/shirts/ShirtProvider"
 import { UserProvider } from "./components/users/UserProvider"
 import { ShirtForm } from "./components/shirts/ShirtForm"
 import { TradeForm } from "./components/trades/TradeForm"
+import { OffersReceivedList } from "./components/trades/OffersReceivedList"
+import { OfferSentList } from "./components/trades/OffersSentList"
 
-
+// Two main routes here, one for the trades/offers and another for the shirt postings.
 
 export const ApplicationViews = () => {
     return (
@@ -16,8 +18,14 @@ export const ApplicationViews = () => {
             <TradeProvider>
                     <ShirtProvider>
                         <UserProvider>
-                            <Route exact path="/trades">
+                            {/* <Route exact path="/trades">
                                 <TradeList />
+                            </Route> */}
+                            <Route exact path="/trades/received">
+                                <OffersReceivedList />
+                            </Route>
+                            <Route exact path="/trades/sent">
+                                <OfferSentList />
                             </Route>
                             <Route exact path="/trades/detail/:tradeId(\d+)">
                                 <TradeDetail />
@@ -30,12 +38,17 @@ export const ApplicationViews = () => {
             </TradeProvider>
             <ShirtProvider>
                 <UserProvider>
-                    <Route exact path="/shirts">
+                    <TradeProvider>
+                    <Route exact path="/">
                         <ShirtList />
                     </Route>
-                    <Route exact path="/shirts/create">
+                    <Route exact path="/create">
                         <ShirtForm />
                     </Route>
+                    <Route exact path="/edit/:shirtId(\d+)">
+                        <ShirtForm />
+                    </Route>
+                    </TradeProvider>
                 </UserProvider>
             </ShirtProvider>
 

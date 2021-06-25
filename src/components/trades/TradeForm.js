@@ -12,8 +12,9 @@ export const TradeForm = () => {
         shirtId: 0,
         offerShirtId: 0,
         message: "",
-        accepted: false,
-        timestamp: 0
+        timeAccepted: 0,
+        timestamp: 0,
+        shirt:{}
     })
 
     const history = useHistory()
@@ -22,13 +23,15 @@ export const TradeForm = () => {
         getShirts()
     }, [])
 
-    // useEffect(() => ) need a way to update image as we go. 
-
     const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
 
     const userShirts = shirts.filter(shirt => shirt.userId === currentUserId)
 
+    const activeUserShirts = userShirts.filter(shirt => shirt.active===true)
+
     const otherShirts = shirts.filter(shirt => shirt.userId !== currentUserId)
+
+    const activeOtherShirts = otherShirts.filter(shirt => shirt.active===true)
 
     const handleControlledInputChange = (event) => {
 
@@ -42,28 +45,19 @@ export const TradeForm = () => {
     const handleClickSaveEvent = (event) => {
         event.preventDefault()
 
-        // const recShirtId = parseInt(trade.ShirtId)
-        // //this needs to the shirt id of whatever was selected. Or maybe a dropdown of all of them?
-
-        // const thisOfferShirtId = parseInt(trade.offerShirtId)
-        // //this needs to be a dropdown with an array of shirts filtered by the local user.
-
-
-        if (trade.shirtId === 0) {
+        if (trade.shirtId === 0 || trade.offerShirtId === 0) {
             window.alert("Please select a shirt to trade.")
         } else {
             const newTrade = {
-                shirtId: trade.shirtId,
-                // or shirtId: trade.shirtId
-                // of offerShirtId: trade.offerShirtId
-                offerShirtId: trade.offerShirtId,
+                shirtId: parseInt(trade.shirtId),
+                offerShirtId: parseInt(trade.offerShirtId),
                 message: trade.message,
-                accepted: false,
-                timestamp: Date.now()
-
+                timeAccepted: 0,
+                timestamp: Date.now(),
+                shirt:{}
             }
-            addTrade(newTrade)
-            .then(() => history.push("/trades"))
+           addTrade(newTrade)
+           .then(() => history.push("/"))
         }
     }
 
@@ -75,23 +69,20 @@ export const TradeForm = () => {
                     <label htmlFor="recShirt">The shirt you want:</label>
                     <select name="shirtId" id="shirtId" className="form-control" value={trade.shirtId} onChange={handleControlledInputChange}>
                         <option value="0">Select a Shirt:</option>
-                        {otherShirts.map(s => (
+                        {activeOtherShirts.map(s => (
                             <option key={s.id} value={s.id}>
                                 {s.title}
                             </option>
                         ))}
                     </select>
                 </div>
-                {/* <div className="recShirt">
-                <img src={trade.shirt.imageURL} className="recShirt__image" />
-            </div> */}
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="shirt">Your Shirt to Offer:</label>
                     <select name="offerShirtId" id="offerShirtId" className="form-control" value={trade.offerShirtId} onChange={handleControlledInputChange}>
                         <option value="0">Select a Shirt:</option>
-                        {userShirts.map(s => (
+                        {activeUserShirts.map(s => (
                             <option key={s.id} value={s.id}>
                                 {s.title}
                             </option>
@@ -103,21 +94,6 @@ export const TradeForm = () => {
                 <div className="form-group">
                     <label htmlFor="message">Your message:</label>
                     <input type="text" id="message" className="form-control" placeholder="Type a personal message" value={trade.message} onChange={handleControlledInputChange} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <label htmlFor="accepted">Accepted:</label>
-                    <input id="manager"
-                        onChange={
-                            (changeEvent) => {
-                                const copyOfTradeState = { ...trade }
-                                copyOfTradeState.accepted = !copyOfTradeState.accepted
-                                setTrade(copyOfTradeState)
-                            }
-                        }
-                        type="checkbox" checked={trade.accepted} />
-                    {/* need to figure out how to make this show only for the receiver */}
                 </div>
             </fieldset>
             <button className="btn btn-primary" onClick={handleClickSaveEvent}>

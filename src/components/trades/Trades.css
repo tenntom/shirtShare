@@ -1,7 +1,6 @@
 .trades {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .trade {
@@ -9,6 +8,7 @@
     margin: 1em;
     padding: 1em;
     border: 1px solid goldenrod; 
+    flex-wrap: flex;
 }
 
 .trade__images {
@@ -23,4 +23,43 @@
     padding: 1em;
     max-width: 20em;
     max-height: 20em;
+}
+
+.btn {
+    margin: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+.buttons {
+    display: flex;
+}
+ 
+/* .trades-accepted {
+    /* border: solid 1px red */
+/* } */ 
+
+.trades-proposed {
+    margin-bottom: 4em;
+    margin-top: 3em;
+    /* border: solid 1px red */
+}
+
+.open-offers-sent {
+    margin-bottom: 4em;
+    margin-top: 3em;
+}
+
+.trade__accept__btn {
+    margin: 2em;
+}
+
+.trade__delete__btn {
+    margin: 2em;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }

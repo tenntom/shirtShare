@@ -24,3 +24,13 @@
     max-width: 25em;
     max-height: 25em;
   }
+
+  .save-shirt {
+    /* border: 1px solid grey; */
+    margin: 1em;
+    padding: 1em;
+  }
+
+  .create-shirt-btn {
+    margin-right: 2em;
+  }

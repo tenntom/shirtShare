@@ -31,7 +31,7 @@ export const Login = props => {
     return (
         <main className="container--login">
             <dialog className="dialog dialog--auth" ref={existDialog}>
-                <div>User Does Not Exist, yo.</div>
+                <div>User Does Not Exist.</div>
                 <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
             </dialog>
 
@@ -55,7 +55,7 @@ export const Login = props => {
                 </form>
             </section>
             <section className="link--register">
-                <Link to="/register">Not a customer yet?</Link>
+                <Link to="/register">Not a ShirtSharer yet?</Link>
             </section>
 
         </main>
