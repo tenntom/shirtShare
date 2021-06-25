@@ -23,7 +23,7 @@ export const ShirtDetail = (props) => {
         size: {}
     })
 
-    const shirtId = props.shirt.id //need to better understand the difference between this and setParams.
+    const shirtId = props.shirt.id //this is an alternative to use Params
 
     const history = useHistory()
 

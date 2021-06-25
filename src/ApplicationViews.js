@@ -18,7 +18,8 @@ export const ApplicationViews = () => {
             <TradeProvider>
                     <ShirtProvider>
                         <UserProvider>
-                            {/* <Route exact path="/trades">
+                            {/* Again, this is not currently used, but could be added in again.
+                            <Route exact path="/trades">
                                 <TradeList />
                             </Route> */}
                             <Route exact path="/trades/received">
