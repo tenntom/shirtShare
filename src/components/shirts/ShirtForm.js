@@ -79,7 +79,7 @@ export const ShirtForm = () => {
     const handleClickSaveShirt = (event) => {
         event.preventDefault()
 
-        const sizeId = parseInt(shirt.sizeId)
+        // const sizeId = parseInt(shirt.sizeId)
 
         if ((shirt.title === "") || (shirt.sizeId === 0) || (shirt.description === "")) {
             window.alert("Please fill out your shirt information.")
@@ -104,7 +104,7 @@ export const ShirtForm = () => {
                 addShirt({
                     title: shirt.title,
                     userId: currentUserId,
-                    sizeId: sizeId,
+                    sizeId: shirt.sizeId,
                     imageURL: shirt.imageURL,
                     description: shirt.description,
                     active: true,
