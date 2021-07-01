@@ -4,6 +4,13 @@ import { UserContext } from "../users/UserProvider";
 import { ShirtList } from "./ShirtList";
 
 
+const sortByMostRecent = () => {
+    thisArray.sort(function(a,b) {
+        return a.timestamp - b.timestamp
+    }) 
+}
+
+
 // const filterApp = () => {
 //     return (
 //         <div>

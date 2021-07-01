@@ -5,6 +5,7 @@ export const ShirtContext = createContext()
 export const ShirtProvider = (props) => {
     const [shirts, setShirts] = useState([])
     const [shirtSizes, setSizes ] = useState([])
+    const [ searchTerms, setSearchTerms ] = useState("")
 
     const getShirts = () => {
         return fetch("http://localhost:7777/shirts?_expand=size&_expand=user")
@@ -55,7 +56,7 @@ export const ShirtProvider = (props) => {
 
     return (
         <ShirtContext.Provider value={{
-        shirts, getShirts, getShirtById, getSizes, shirtSizes, addShirt, removeShirt, updateShirt
+        shirts, getShirts, getShirtById, getSizes, shirtSizes, addShirt, removeShirt, updateShirt, searchTerms, setSearchTerms
     }}>
     {props.children}
     </ShirtContext.Provider>

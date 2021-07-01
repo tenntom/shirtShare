@@ -9,6 +9,7 @@ import { ShirtForm } from "./components/shirts/ShirtForm"
 import { TradeForm } from "./components/trades/TradeForm"
 import { OffersReceivedList } from "./components/trades/OffersReceivedList"
 import { OfferSentList } from "./components/trades/OffersSentList"
+import { ShirtSearch } from "./components/shirts/ShirtSearch"
 
 // Two main routes here, one for the trades/offers and another for the shirt postings.
 

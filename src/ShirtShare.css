@@ -35,6 +35,7 @@ address {
 .mainPageHeader {
   color: goldenrod;
   text-align: center;
+  position: sticky;
 }
 
 .line {
