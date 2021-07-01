@@ -108,7 +108,7 @@ export const ShirtForm = () => {
                     imageURL: shirt.imageURL,
                     description: shirt.description,
                     active: true,
-                    timestamp: Date().getTime,
+                    timestamp: Date.now(),
                     user: {},
                     size: {}
                 })
