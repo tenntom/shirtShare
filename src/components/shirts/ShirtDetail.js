@@ -66,6 +66,7 @@ export const ShirtDetail = (props) => {
                 <h4 className="shirt__description">Description: {shirt.description}</h4>
                 <h4 className="shirt__size">Size: {shirt.size.shirtSize}</h4>
                 <h4 className="shirt__user">Posted by: {shirt.user.firstName}</h4>
+                <h4 className="shirt__user">On: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(shirt.timestamp)}</h4>
                 <div className="shirt__remove__div"> {
                     shirt.user.id === user.id
                         ? <div className="buttons">
