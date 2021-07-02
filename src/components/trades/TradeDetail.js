@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, SimpleDateTime } from "react"
 import { TradeContext } from "./TradeProvider"
 import { ShirtContext } from "../shirts/ShirtProvider"
+import { UserContext } from "../users/UserProvider"
 import "./Trades.css"
 import { useParams, useHistory } from "react-router-dom"
 // import SimpleDateTime  from 'react-simple-timestamp-to-date'
@@ -8,6 +9,7 @@ import { useParams, useHistory } from "react-router-dom"
 export const TradeDetail = () => {
     const { trades, getTrades, getTradeById, removeTrade, addTrade, updateTrade } = useContext(TradeContext)
     const { getShirtById, shirts, getShirts, updateShirt } = useContext(ShirtContext)
+    const { getUserById, user, getUsers, users } = useContext(UserContext)
     const [trade, setTrade] = useState({
         shirt: {},
         offerShirtId: 0,
@@ -16,28 +18,43 @@ export const TradeDetail = () => {
         timestamp: 0,
     })
 
+    // const [offerer, setOfferer] = useState({})
+
+    // const [recipient, setRecipient] = useState({})
+
     const [offerShirt, setOfferShirt] = useState({})
 
     const history = useHistory()
 
-    useEffect(() => {
-        getTrades()
-        getShirts()
-    }, [])
-
     const { tradeId } = useParams();
 
-
     useEffect(() => {
+        getTrades()
+        getUsers()
         getTradeById(tradeId)
             .then(thisTrade => setTrade(thisTrade))
-    }, offerShirt)
+        getShirtById(trade.offerShirtId)
+            .then(shirtobj => setOfferShirt(shirtobj))
+            // .then(getUserById(offerShirt.userId)
+            //     .then((userObj) => setOfferer(userObj)))
+    }, [])
+
+
+
+    // useEffect(() => {
+    //     getTradeById(tradeId)
+    //         .then(thisTrade => setTrade(thisTrade))
+    // }, [trade])
 
     useEffect(() => {
         getShirtById(trade.offerShirtId)
             .then(shirtobj => setOfferShirt(shirtobj))
-    }, [trade]
-    )
+    }, [trade])
+
+    // useEffect(() => {
+    //     getUserById(offerShirt.userId)
+    //     .then((userObj) => setOfferer(userObj))
+    // }, [trade.accepted])
 
     const handleRemoveTrade = () => {
         removeTrade(trade.id)
@@ -65,7 +82,14 @@ export const TradeDetail = () => {
             })
     }
 
-
+    const contactInfo = () => {
+        const user1 = users.find((user) => user.id === offerShirt.userId)
+        const user2 = users.find((user) => user.id === trade.shirt.userId)
+        console.log(user1, user2)
+        // return (`
+        // The trade was offered on ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)} by ${user1.firstName}, who can be reached at ${user1.email}, and accepted on on ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)} by ${user2.firstName}, who can be reached at ${user2.email}`
+        // )
+    }
 
     return (
         <section className="trade">
@@ -78,28 +102,30 @@ export const TradeDetail = () => {
             <div className="trade__time">Time Sent: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)}
             </div>
             <div>
-            {
-                trade.timeAccepted
-                    ? <h5>The trade was accepted at {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timeAccepted)}.</h5>
-                    :
-                    <div className="buttons">
-                        <div className="btn trade__delete__btn">
-                            {
-                                offerShirt.userId === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
-                                    ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
-                                    : <p> </p>
-                            }
-                        </div>
-                        <div className="accept-offer">
-                            {
-                                trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user")) && trade.shirt.active && offerShirt.active
-                                    ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Trade</button>
-                                    : <p> </p>
-                            }
-                        </div>
+                {
+                    trade.timeAccepted
+                        ? <div>
+                            {contactInfo()}
+                            </div>
+                        :
+                        <div className="buttons">
+                            <div className="btn trade__delete__btn">
+                                {
+                                    offerShirt.userId === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
+                                        ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
+                                        : <p> </p>
+                                }
+                            </div>
+                            <div className="accept-offer">
+                                {
+                                    trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user")) && trade.shirt.active && offerShirt.active
+                                        ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Trade</button>
+                                        : <p> </p>
+                                }
+                            </div>
 
-                    </div>
-            }
+                        </div>
+                }
             </div>
         </section>
     )

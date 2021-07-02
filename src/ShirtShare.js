@@ -10,7 +10,7 @@ import {NavBar} from "./components/nav/NavBar"
 // Opening to show up as a header on all pages.
 const Opening = () => (
     <header className="mainPageHeader">
-        <h2>Secondhand ShirtShare</h2>
+        <h2>2nd Hand T-Party</h2>
         <small className="line line2">Refresh your Wardrobe.</small>
         <small className="line line1">Clean your Closet.</small>
         <small className="line line2">Keep your Coin.</small>
