@@ -68,15 +68,21 @@ export const ShirtList = () => {
 
         return (
             <div className="filter-by-user filter">
-                <select className="user_select" onChange={(changeEvent) => {
+                <select className="user_select" id="selected_user" onChange={(changeEvent) => {
                     let selectedUserId = parseInt(changeEvent.target.value)
+                    let selectedSize = document.getElementById("selected_size")
+                    let selectedSizeId = parseInt(selectedSize.value)
                     let copyOfActiveShirts = [...activeShirts]
-                    let theseShirts = (selectedUserId === 0)
+                    let theseShirts = (selectedUserId === 0) && (selectedSizeId === 0)
                         ? copyOfActiveShirts
-                        : copyOfActiveShirts.filter(shirt => shirt.userId === selectedUserId);
+                        : (selectedUserId > 0) && (selectedSizeId === 0)
+                            ? copyOfActiveShirts.filter(shirt => shirt.userId === selectedUserId)
+                            : selectedUserId === 0
+                                ? copyOfActiveShirts.filter(shirt => shirt.sizeId === selectedSizeId)
+                                : copyOfActiveShirts.filter((shirt) => (shirt.userId === selectedUserId) && (shirt.sizeId === selectedSizeId))
                     setSelectedUserShirts(theseShirts)
                 }}>
-                    <option className="user_option" value={0}>All Users</option>
+                    <option className="user_option" value={0} selected>All Users</option>
                     {
                         users.map(user => {
                             return (
@@ -94,25 +100,31 @@ export const ShirtList = () => {
 
         return (
             <div className="filter-by-size filter">
-                <select className="size_select" onChange={(changeEvent) => {
+                <select className="size_select" id="selected_size" onChange={(changeEvent) => {
+                    let selectedUser = document.getElementById("selected_user")
+                    let selectedUserId = parseInt(selectedUser.value)
                     let selectedSizeId = parseInt(changeEvent.target.value)
-                    let copyOfSelectedUserShirts = [...selectedUserShirts]
-                    let theseShirts = (selectedSizeId === 0)
-                        ? copyOfSelectedUserShirts
-                        : copyOfSelectedUserShirts.filter(shirt => shirt.sizeId === selectedSizeId);
+                    let copyOfActiveShirts = [...activeShirts]
+                    let theseShirts = (selectedSizeId === 0) && (selectedUserId === 0)
+                        ? copyOfActiveShirts
+                        : (selectedSizeId > 0) && (selectedUserId === 0)
+                            ? copyOfActiveShirts.filter(shirt => shirt.sizeId === selectedSizeId)
+                            : selectedSizeId === 0
+                                ? copyOfActiveShirts.filter(shirt => shirt.userId === selectedUserId)
+                                : copyOfActiveShirts.filter((shirt) => (shirt.sizeId === selectedSizeId) && (shirt.userId === selectedUserId));
                     setSelectedSizeShirts(theseShirts)
                 }}>
-                    <option className="user_option" value={0}>All Sizes</option>
+                    <option className="size_option" value={0}>All Sizes</option>
                     {
                         shirtSizes.map(size => {
                             return (
-                                <option className="user_option" value={size.id}>{size.shirtSize}</option>
+                                <option className="size_option" value={size.id}>{size.shirtSize}</option>
                             )
                         })
                     }
 
                 </select>
-            </div>
+            </div >
         )
     }
 
@@ -125,8 +137,6 @@ export const ShirtList = () => {
                         ? copyOfDisplayShirts.sort((a, b) => b.timestamp - a.timestamp)
                         : copyOfDisplayShirts.sort((a, b) => a.timestamp - b.timestamp);
                     setSortByTimeShirts(theseShirts)
-                    // console.log(changeEvent.target.value)
-                    // console.log(sortByTimeShirts)
                 }}>
                     <option value="new">Recent First</option>
                     <option value="old">Oldest First</option>
@@ -153,12 +163,12 @@ export const ShirtList = () => {
                     </button>
 
                     <div className="user-dropdown dropdown">
-                        <h5>Search by User</h5>
+                        <h5>Filter by User</h5>
                         {UserDropDown()}
                     </div>
 
                     <div className="user-dropdown dropdown">
-                        <h5>Search by Size</h5>
+                        <h5>Filter by Size</h5>
                         {SizeDropDown()}
                     </div>
 
@@ -174,8 +184,10 @@ export const ShirtList = () => {
 
                     <div>
                         <button className="reset-btn aside-btn" onClick={() => {
+                            let selectedUser = document.getElementById("selected_user")
+                            console.log(selectedUser.value)
                             setDisplayShirts(activeShirts)
-                            }}>
+                        }}>
                             Reset Filters
                         </button>
                     </div>
