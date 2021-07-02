@@ -20,8 +20,6 @@ export const ShirtList = () => {
 
     const [sortByTimeShirts, setSortByTimeShirts] = useState([])
 
-    const [mostRecentShirts, setMostRecentShirts] = useState([])
-
     const [filteredShirts, setFiltered] = useState([])
 
     const history = useHistory()
@@ -34,8 +32,9 @@ export const ShirtList = () => {
 
     useEffect(() => {
         const theseActiveShirts = shirts.filter(shirt => shirt.active === true)
-        setActiveShirts(theseActiveShirts)
-        setDisplayShirts(theseActiveShirts)
+        const theseRecentShirts = theseActiveShirts.sort((a, b) => b.timestamp - a.timestamp)
+        setActiveShirts(theseRecentShirts)
+        setDisplayShirts(theseRecentShirts)
     }, [shirts])
 
     useEffect(() => {
@@ -71,11 +70,11 @@ export const ShirtList = () => {
             <div className="filter-by-user filter">
                 <select className="user_select" onChange={(changeEvent) => {
                     let selectedUserId = parseInt(changeEvent.target.value)
+                    let copyOfActiveShirts = [...activeShirts]
                     let theseShirts = (selectedUserId === 0)
-                        ? activeShirts
-                        : activeShirts.filter(shirt => shirt.userId === selectedUserId);
+                        ? copyOfActiveShirts
+                        : copyOfActiveShirts.filter(shirt => shirt.userId === selectedUserId);
                     setSelectedUserShirts(theseShirts)
-                    setDisplayShirts(theseShirts)
                 }}>
                     <option className="user_option" value={0}>All Users</option>
                     {
@@ -97,11 +96,11 @@ export const ShirtList = () => {
             <div className="filter-by-size filter">
                 <select className="size_select" onChange={(changeEvent) => {
                     let selectedSizeId = parseInt(changeEvent.target.value)
+                    let copyOfSelectedUserShirts = [...selectedUserShirts]
                     let theseShirts = (selectedSizeId === 0)
-                        ? activeShirts
-                        : activeShirts.filter(shirt => shirt.sizeId === selectedSizeId);
+                        ? copyOfSelectedUserShirts
+                        : copyOfSelectedUserShirts.filter(shirt => shirt.sizeId === selectedSizeId);
                     setSelectedSizeShirts(theseShirts)
-                    setDisplayShirts(theseShirts)
                 }}>
                     <option className="user_option" value={0}>All Sizes</option>
                     {
@@ -121,15 +120,16 @@ export const ShirtList = () => {
         return (
             <div className="filter-by-time filter">
                 <select className="timestamp_select" onChange={(changeEvent) => {
-                    let theseShirts = (changeEvent.target.value === "old")
-                        ? displayShirts.sort((a, b) => b.timestamp - a.timestamp)
-                        : displayShirts.sort((a, b) => a.timestamp - b.timestamp);
+                    let copyOfDisplayShirts = [...displayShirts]
+                    let theseShirts = (changeEvent.target.value === "new")
+                        ? copyOfDisplayShirts.sort((a, b) => b.timestamp - a.timestamp)
+                        : copyOfDisplayShirts.sort((a, b) => a.timestamp - b.timestamp);
                     setSortByTimeShirts(theseShirts)
-                    console.log(changeEvent.target.value)
-                    console.log(sortByTimeShirts)
+                    // console.log(changeEvent.target.value)
+                    // console.log(sortByTimeShirts)
                 }}>
-                    <option value="old">Oldest Post First</option>
-                    <option value="new">Most Recent First</option>
+                    <option value="new">Recent First</option>
+                    <option value="old">Oldest First</option>
                 </select>
             </div>
         )
@@ -173,7 +173,9 @@ export const ShirtList = () => {
                     </div>
 
                     <div>
-                        <button className="reset-btn aside-btn">
+                        <button className="reset-btn aside-btn" onClick={() => {
+                            setDisplayShirts(activeShirts)
+                            }}>
                             Reset Filters
                         </button>
                     </div>
