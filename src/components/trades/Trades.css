@@ -25,15 +25,15 @@
     max-height: 20em;
 }
 
-.btn {
-    margin: 1em;
-    padding-right: 1em;
-    padding-left: 1em;
-}
+/* .btn {
+    margin: 0.1em;
+    /* padding-right: 0.5em;
+    padding-left: 0.5em; */
+/* } */ 
 
-.buttons {
+/* .buttons {
     display: flex;
-}
+} */
  
 
 .trades-proposed {
@@ -65,4 +65,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+}
+
+.users_section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user_card {
+    margin: 1em;
+    padding: 1em;
 }

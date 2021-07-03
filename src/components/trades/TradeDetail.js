@@ -18,9 +18,9 @@ export const TradeDetail = () => {
         timestamp: 0,
     })
 
-    // const [offerer, setOfferer] = useState({})
+    const [offerer, setOfferer] = useState({})
 
-    // const [recipient, setRecipient] = useState({})
+    const [recipient, setRecipient] = useState({})
 
     const [offerShirt, setOfferShirt] = useState({})
 
@@ -29,14 +29,15 @@ export const TradeDetail = () => {
     const { tradeId } = useParams();
 
     useEffect(() => {
-        getTrades()
-        getUsers()
+        // getTrades()
+        // getUsers()
         getTradeById(tradeId)
             .then(thisTrade => setTrade(thisTrade))
-        getShirtById(trade.offerShirtId)
-            .then(shirtobj => setOfferShirt(shirtobj))
-            // .then(getUserById(offerShirt.userId)
-            //     .then((userObj) => setOfferer(userObj)))
+            .then(console.log(trade))
+        // getShirtById(trade.offerShirtId)
+        //     .then(shirtobj => setOfferShirt(shirtobj))
+        // .then(getUserById(offerShirt.userId)
+        //     .then((userObj) => setOfferer(userObj)))
     }, [])
 
 
@@ -47,9 +48,24 @@ export const TradeDetail = () => {
     // }, [trade])
 
     useEffect(() => {
-        getShirtById(trade.offerShirtId)
+        console.log(trade)
+        const offerShirtId = parseInt(trade.offerShirtId)
+        getShirtById(offerShirtId)
             .then(shirtobj => setOfferShirt(shirtobj))
     }, [trade])
+
+    useEffect(() => {
+        getUserById(offerShirt.userId)
+            .then(userObj => setOfferer(userObj))
+            .then(console.log(offerShirt))
+    }, [offerShirt])
+
+    useEffect(() => {
+        getUserById(trade.shirt.userId)
+            .then(otherUserObj => setRecipient(otherUserObj))
+            .then(console.log(offerer))
+            .then(console.log(recipient))
+    }, [offerer])
 
     // useEffect(() => {
     //     getUserById(offerShirt.userId)
@@ -82,14 +98,15 @@ export const TradeDetail = () => {
             })
     }
 
-    const contactInfo = () => {
-        const user1 = users.find((user) => user.id === offerShirt.userId)
-        const user2 = users.find((user) => user.id === trade.shirt.userId)
-        console.log(user1, user2)
-        // return (`
-        // The trade was offered on ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)} by ${user1.firstName}, who can be reached at ${user1.email}, and accepted on on ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)} by ${user2.firstName}, who can be reached at ${user2.email}`
-        // )
-    }
+    // const contactInfo = () => {
+    //     const user1 = users.find(user => user.id === offerShirt.userId)
+    //     const user2 = users.find(user => user.id === trade.shirt.userId)
+    //     // console.log(user1, user2)
+    //     return (`yo ${user1.firstName}`)
+    //     // return (`
+    //     // The trade was offered on ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)} by ${user1.firstName}, who can be reached at ${user1.email}, and accepted on on ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)} by ${user2.firstName}, who can be reached at ${user2.email}.`
+    //     // )
+    // }
 
     return (
         <section className="trade">
@@ -98,28 +115,56 @@ export const TradeDetail = () => {
                 <img src={trade.shirt.imageURL} alt="recipient's t-shirt" className="trade_photo receiver_shirt" />
                 <img src={offerShirt.imageURL} alt="sender's t-shirt" className="trade_photo sender_shirt" />
             </div>
+            <div className="message_time">
             <h3 className="trade__message">{trade.message}</h3>
             <div className="trade__time">Time Sent: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)}
+            </div>
             </div>
             <div>
                 {
                     trade.timeAccepted
                         ? <div>
-                            {contactInfo()}
+                            Time Accepted: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(trade.timestamp)}
+                            <div className="users_section">
+                                <div className="offerer_info user_info">
+                                    <h5>Offered by:</h5>
+                                    <div className="user_card">
+                                        {offerer.firstName} {offerer.lastName}
+                                        <br />
+                                        {offerer.email}
+                                        <br />
+                                        {offerer.address}
+                                        <br />
+                                        {offerer.city}, {offerer.state} {offerer.zip}
+                                    </div>
+                                </div>
+                                <div className="recipient_info user_info">
+                                    <h5>Accepted by: </h5>
+                                    <div className="user_card">
+                                        {recipient.firstName} {recipient.lastName}
+                                        <br />
+                                        {recipient.email}
+                                        <br />
+                                        {recipient.address}
+                                        <br />
+                                        {recipient.city}, {recipient.state} {recipient.zip}
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                         :
                         <div className="buttons">
                             <div className="btn trade__delete__btn">
                                 {
                                     offerShirt.userId === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
-                                        ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Trade Offer</button>
+                                        ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Offer</button>
                                         : <p> </p>
                                 }
                             </div>
-                            <div className="accept-offer">
+                            <div className="btn accept__offe__btnr">
                                 {
                                     trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user")) && trade.shirt.active && offerShirt.active
-                                        ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Trade</button>
+                                        ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Offer</button>
                                         : <p> </p>
                                 }
                             </div>

@@ -31,7 +31,7 @@ export const UserProvider = (props) => {
     const getUserById = (id) => {
         return fetch(`http://localhost:7777/users/${id}?_embed=shirts`)
         .then(res=> res.json())
-        .then(userObj => setUser(userObj))
+        // .then(userObj => setUser(userObj))
     }
 
 
