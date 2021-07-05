@@ -8,7 +8,7 @@ import { TradeContext } from "../trades/TradeProvider"
 export const ShirtDetail = (props) => {
 
     const { getShirtById, removeShirt, updateShirt } = useContext(ShirtContext)
-    const { getUserById, user } = useContext(UserContext)
+    const { getUserById, user, setUser } = useContext(UserContext)
     const { trades, getTrades, removeTrade } = useContext(TradeContext)
 
     const [shirt, setShirt] = useState({
@@ -35,6 +35,7 @@ export const ShirtDetail = (props) => {
             .then(() => {
                 const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
                 getUserById(currentUserId)
+                .then(data => setUser(data))
             }
             )
     }, []
@@ -51,7 +52,7 @@ export const ShirtDetail = (props) => {
             .then(() => {
                 removeShirt(shirt.id)
             })
-            .then(() => getTrades)
+            .then(() => getTrades())
             .then(() => history.push("/")
             )
     }

@@ -52,12 +52,12 @@ export const OfferSentList = () => {
     return (
         <>
             <h2>Offers Sent</h2>
-            <button className="create-shirt-btn"onClick={
+            <button className="create-shirt-btn btn"onClick={
                 () => history.push("./create")
             }>Add Shirt
             </button>
 
-            <button className="propose-trade-btn" onClick={
+            <button className="propose-trade-btn btn" onClick={
                 () => history.push("/trades/create")
             }>
                 Propose Trade

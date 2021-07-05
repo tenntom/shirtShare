@@ -158,14 +158,14 @@ export const TradeDetail = () => {
                                 {
                                     offerShirt.userId === parseInt(localStorage.getItem("shirtshare_user")) || trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user"))
                                         ? <button className="btn trade__delete__btn " onClick={handleRemoveTrade}>Delete Offer</button>
-                                        : <p> </p>
+                                        : null
                                 }
                             </div>
-                            <div className="btn accept__offe__btnr">
+                            <div className="btn accept__offer__btn">
                                 {
                                     trade.shirt.userId === parseInt(localStorage.getItem("shirtshare_user")) && trade.shirt.active && offerShirt.active
                                         ? <button className="btn trade__accept__btn" onClick={handleAcceptTrade}>Accept Offer</button>
-                                        : <p> </p>
+                                        : null
                                 }
                             </div>
 

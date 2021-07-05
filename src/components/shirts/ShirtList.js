@@ -182,15 +182,15 @@ export const ShirtList = () => {
                         <ShirtSearch />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <button className="reset-btn aside-btn" onClick={() => {
-                            let selectedUser = document.getElementById("selected_user")
-                            console.log(selectedUser.value)
+                            // let selectedUser = document.getElementById("selected_user")
+                            // console.log(selectedUser.value)
                             setDisplayShirts(activeShirts)
                         }}>
                             Reset Filters
                         </button>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="shirts">
