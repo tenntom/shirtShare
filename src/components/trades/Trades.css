@@ -31,34 +31,49 @@
     padding-left: 1em;
 }
 
-.buttons {
+/* .buttons {
     display: flex;
-}
+} */
  
 
 .trades-proposed {
-    margin-bottom: 4em;
-    margin-top: 3em;
+    margin-bottom: 2em;
+    margin-top: 2em;
 }
 
 .open-offers-sent {
-    margin-bottom: 4em;
-    margin-top: 3em;
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+.trade_time {
+    margin-bottom: 1 em;
 }
 
 
 /* I cannot figure out how to get these buttons to line up.  */
 
-.trade__accept__btn {
+/* .trade__accept__btn {
     margin: 2em;
 }
 
 .trade__delete__btn {
     margin: 2em;
-}
+} */
 
 .buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    /* justify-content: space-between; */
+}
+
+.users_section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user_card {
+    margin: 1em;
+    padding: 1em;
 }

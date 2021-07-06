@@ -32,9 +32,7 @@ export const OfferSentList = () => {
 
     useEffect(() => {
         const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
-        getUserById(currentUserId)
-            .then(() => {
-                const currentUserShirts = user.shirts
+                const currentUserShirts = shirts.filter(shirt => shirt.userId === currentUserId)
                 const theseOffers = []
                 trades.map((trade) => {
                     currentUserShirts.map((shirt) => {
@@ -47,7 +45,6 @@ export const OfferSentList = () => {
                 const theseAcceptedSentOffers = theseOffers.filter(trade => trade.timeAccepted > 0)
                 setOpenSentOffers(theseOpenSentOffers)
                 setAcceptedSentOffers(theseAcceptedSentOffers)
-            })
     }, [shirts])
 
     //first return the open offers, then the accepted offers. 
@@ -55,12 +52,12 @@ export const OfferSentList = () => {
     return (
         <>
             <h2>Offers Sent</h2>
-            <button className="create-shirt-btn"onClick={
+            <button className="create-shirt-btn btn"onClick={
                 () => history.push("./create")
             }>Add Shirt
             </button>
 
-            <button className="propose-trade-btn" onClick={
+            <button className="propose-trade-btn btn" onClick={
                 () => history.push("/trades/create")
             }>
                 Propose Trade

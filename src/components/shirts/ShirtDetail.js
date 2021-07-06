@@ -8,7 +8,7 @@ import { TradeContext } from "../trades/TradeProvider"
 export const ShirtDetail = (props) => {
 
     const { getShirtById, removeShirt, updateShirt } = useContext(ShirtContext)
-    const { getUserById, user } = useContext(UserContext)
+    const { getUserById, user, setUser } = useContext(UserContext)
     const { trades, getTrades, removeTrade } = useContext(TradeContext)
 
     const [shirt, setShirt] = useState({
@@ -23,7 +23,7 @@ export const ShirtDetail = (props) => {
         size: {}
     })
 
-    const shirtId = props.shirt.id //this is an alternative to use Params
+    const shirtId = props.shirt.id
 
     const history = useHistory()
 
@@ -35,6 +35,7 @@ export const ShirtDetail = (props) => {
             .then(() => {
                 const currentUserId = parseInt(localStorage.getItem("shirtshare_user"))
                 getUserById(currentUserId)
+                .then(data => setUser(data))
             }
             )
     }, []
@@ -51,7 +52,7 @@ export const ShirtDetail = (props) => {
             .then(() => {
                 removeShirt(shirt.id)
             })
-            .then(() => getTrades)
+            .then(() => getTrades())
             .then(() => history.push("/")
             )
     }
@@ -70,8 +71,8 @@ export const ShirtDetail = (props) => {
                 <div className="shirt__remove__div"> {
                     shirt.user.id === user.id
                         ? <div className="buttons">
-                            <button className="shirt__remove" onClick={handleDeleteShirt}>Delete Shirt</button>
-                            <button className="shirt__edit" onClick={()=> {
+                            <button className="shirt__remove shirt__btn" onClick={handleDeleteShirt}>Delete Shirt</button>
+                            <button className="shirt__edit shirt__btn" onClick={()=> {
                                 history.push(`/edit/${shirt.id}`)
                             }}>Edit Shirt</button>
                         </div>

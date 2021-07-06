@@ -90,8 +90,7 @@ export const ShirtForm = () => {
                     id: shirt.id,
                     title: shirt.title,
                     userId: currentUserId,
-                    // sizeId: sizeId,
-                    sizeId: shirt.sizeId,
+                    sizeId: parseInt(shirt.sizeId),
                     imageURL: shirt.imageURL,
                     description: shirt.description,
                     active: true,
@@ -104,7 +103,7 @@ export const ShirtForm = () => {
                 addShirt({
                     title: shirt.title,
                     userId: currentUserId,
-                    sizeId: shirt.sizeId,
+                    sizeId: parseInt(shirt.sizeId),
                     imageURL: shirt.imageURL,
                     description: shirt.description,
                     active: true,
@@ -136,10 +135,10 @@ export const ShirtForm = () => {
                     <select name="sizeId" id="sizeId" className="form-control" value={shirt.sizeId} onChange={handleControlledInputChange}>
                         <option value="0">Select a Size:</option>
                         {
-                            shirtSizes.map((s) => {
+                            shirtSizes.map((size) => {
                                 return (
-                                    <option key={s.id} value={s.id}>
-                                        {s.shirtSize}
+                                    <option key={size.id} value={size.id}>
+                                        {size.shirtSize}
                                     </option>
                                 )
                             }

@@ -97,7 +97,7 @@ export const TradeForm = () => {
                 </div>
             </fieldset>
             <button className="btn btn-primary" onClick={handleClickSaveEvent}>
-                Save Trade
+                Make Offer
             </button>
         </form >
     )
