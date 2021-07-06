@@ -22,6 +22,7 @@ export const ShirtProvider = (props) => {
             body: JSON.stringify(shirtObj)
         })
         .then(response => response.json)
+        .then(getShirts)
     }
 
     const getShirtById = (id) => {

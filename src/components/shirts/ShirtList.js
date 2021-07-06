@@ -39,8 +39,8 @@ export const ShirtList = () => {
 
     useEffect(() => {
         if (searchTerms !== "") {
-            // If the search field is not blank, display matching shirts from title or description
-            const subset = displayShirts.filter(shirt => shirt.title.toLowerCase().includes(searchTerms) || shirt.description.toLowerCase().includes(searchTerms))
+            // If the search field is not blank, display matching shirts from title, description, first name, or last name.
+            const subset = displayShirts.filter(shirt => shirt.title.toLowerCase().includes(searchTerms) || shirt.description.toLowerCase().includes(searchTerms) || shirt.user.firstName.toLowerCase().includes(searchTerms) || shirt.user.lastName.toLowerCase().includes(searchTerms))
             setFiltered(subset)
         } else {
             // If the search field is blank, display all shirts
@@ -114,7 +114,7 @@ export const ShirtList = () => {
                                 : copyOfActiveShirts.filter((shirt) => (shirt.sizeId === selectedSizeId) && (shirt.userId === selectedUserId));
                     setSelectedSizeShirts(theseShirts)
                 }}>
-                    <option className="size_option" value={0}>All Sizes</option>
+                    <option className="size_option" value={0} >All Sizes</option>
                     {
                         shirtSizes.map(size => {
                             return (
@@ -181,16 +181,6 @@ export const ShirtList = () => {
                         <h5>Keyword Search</h5>
                         <ShirtSearch />
                     </div>
-
-                    {/* <div>
-                        <button className="reset-btn aside-btn" onClick={() => {
-                            // let selectedUser = document.getElementById("selected_user")
-                            // console.log(selectedUser.value)
-                            setDisplayShirts(activeShirts)
-                        }}>
-                            Reset Filters
-                        </button>
-                    </div> */}
                 </div>
 
                 <div className="shirts">

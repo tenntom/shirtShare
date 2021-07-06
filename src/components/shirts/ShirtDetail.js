@@ -23,7 +23,7 @@ export const ShirtDetail = (props) => {
         size: {}
     })
 
-    const shirtId = props.shirt.id //this is an alternative to use Params
+    const shirtId = props.shirt.id
 
     const history = useHistory()
 
@@ -71,8 +71,8 @@ export const ShirtDetail = (props) => {
                 <div className="shirt__remove__div"> {
                     shirt.user.id === user.id
                         ? <div className="buttons">
-                            <button className="shirt__remove" onClick={handleDeleteShirt}>Delete Shirt</button>
-                            <button className="shirt__edit" onClick={()=> {
+                            <button className="shirt__remove shirt__btn" onClick={handleDeleteShirt}>Delete Shirt</button>
+                            <button className="shirt__edit shirt__btn" onClick={()=> {
                                 history.push(`/edit/${shirt.id}`)
                             }}>Edit Shirt</button>
                         </div>
